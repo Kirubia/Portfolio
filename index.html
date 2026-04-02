@@ -6,12 +6,146 @@
 <title>Kirubia A — Data Science Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #1c2333; --bg2: #232e42; --surface: #2a374f; --surface2: #314158;
+  --border: rgba(255,255,255,0.09); --border2: rgba(255,255,255,0.16);
+  --accent: #38bdf8; --accent2: #0ea5e9; --accent-glow: rgba(56,189,248,0.15);
+  --green: #4ade80; --text: #f1f5f9; --text2: #b0bdd0; --text3: #7d8fa8;
+  --mono: 'DM Mono', monospace; --sans: 'DM Sans', sans-serif;
+  --r-sm: 6px; --r-md: 10px; --r-lg: 16px; --max-w: 1100px;
+}
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.65; font-size: 15px; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { color: var(--accent); text-decoration: none; transition: opacity 0.2s; }
+a:hover { opacity: 0.75; }
+ul { padding-left: 1.25rem; }
+li { margin-bottom: 0.35rem; color: var(--text2); font-size: 14px; }
+
+/* NAV */
+.topnav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 3rem; height: 56px; background: rgba(28,35,51,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+.nav-logo { font-family: var(--mono); font-size: 14px; font-weight: 500; color: var(--accent); letter-spacing: 0.08em; }
+.nav-links { display: flex; align-items: center; gap: 1.5rem; }
+.nav-links a { font-size: 13px; color: var(--text2); transition: color 0.2s; }
+.nav-links a:hover { color: var(--text); opacity: 1; }
+.nav-resume { color: var(--accent) !important; font-family: var(--mono); font-size: 13px; border: 1px solid rgba(56,189,248,0.35); padding: 5px 12px; border-radius: var(--r-sm); transition: background 0.2s; }
+.nav-resume:hover { background: var(--accent); color: #000 !important; opacity: 1; }
+
+/* HERO */
+.hero { position: relative; padding: 130px 3rem 90px; overflow: hidden; border-bottom: 1px solid var(--border); }
+.hero-inner { max-width: var(--max-w); margin: 0 auto; position: relative; z-index: 1; }
+.hero-badge { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; color: var(--green); background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.25); padding: 5px 12px; border-radius: 100px; margin-bottom: 1.5rem; }
+.hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.hero h1 { font-size: clamp(2.2rem, 4vw, 3.4rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; color: var(--text); margin-bottom: 0.6rem; }
+.hero-sub { font-family: var(--mono); font-size: 13px; color: var(--text3); margin-bottom: 1.25rem; letter-spacing: 0.02em; }
+.hero-desc { font-size: 16px; color: var(--text2); max-width: 640px; line-height: 1.7; margin-bottom: 2rem; }
+.hero-links { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.btn-outline { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; color: var(--text2); border: 1px solid var(--border2); padding: 8px 16px; border-radius: var(--r-sm); background: var(--surface); transition: border-color 0.2s, color 0.2s, background 0.2s; }
+.btn-outline:hover { color: var(--text); border-color: rgba(255,255,255,0.25); background: var(--surface2); opacity: 1; }
+.hero-graphic { position: absolute; top: 0; right: 0; width: 50%; height: 100%; overflow: hidden; pointer-events: none; }
+.grid-dots { position: absolute; top: 0; right: 0; width: 100%; height: 100%; background-image: radial-gradient(circle, rgba(56,189,248,0.18) 1px, transparent 1px); background-size: 32px 32px; mask-image: radial-gradient(ellipse 70% 100% at 100% 50%, black 30%, transparent 100%); -webkit-mask-image: radial-gradient(ellipse 70% 100% at 100% 50%, black 30%, transparent 100%); }
+
+/* LAYOUT */
+main { max-width: var(--max-w); margin: 0 auto; padding: 0 3rem; width: 100%; }
+.section { padding: 72px 0; border-bottom: 1px solid var(--border); }
+.section:last-child { border-bottom: none; }
+.section-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; color: var(--accent); text-transform: uppercase; margin-bottom: 2rem; }
+
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* FEATURED */
+.featured-card { background: var(--surface); border: 1px solid var(--border2); border-radius: var(--r-lg); padding: 2rem; position: relative; overflow: hidden; }
+.featured-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), transparent); }
+.featured-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
+.project-tag { display: inline-block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; padding: 4px 10px; border-radius: 100px; margin-bottom: 0.6rem; }
+.project-tag.completed { color: var(--green); background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.25); }
+.featured-title { font-size: 1.4rem; font-weight: 600; letter-spacing: -0.02em; color: var(--text); margin-bottom: 0.6rem; }
+.featured-desc { font-size: 14px; color: var(--text2); line-height: 1.65; max-width: 560px; }
+.btn-primary { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: #000; background: var(--accent); padding: 9px 18px; border-radius: var(--r-sm); white-space: nowrap; transition: background 0.2s; flex-shrink: 0; }
+.btn-primary:hover { background: var(--accent2); opacity: 1; }
+.modules-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 1.5rem; }
+.module-card { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--r-md); padding: 1rem 1.1rem; }
+.module-num { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 0.4rem; }
+.module-card h4 { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 0.4rem; }
+.module-card p { font-size: 12px; color: var(--text2); line-height: 1.55; margin-bottom: 0.75rem; }
+.metrics { display: flex; gap: 8px; flex-wrap: wrap; }
+.metrics span { font-family: var(--mono); font-size: 11px; color: var(--text2); background: var(--bg2); border: 1px solid var(--border); padding: 3px 8px; border-radius: 4px; }
+.metrics strong { color: var(--accent); }
+.featured-stack { display: flex; flex-wrap: wrap; gap: 6px; padding-top: 1.25rem; border-top: 1px solid var(--border); }
+.featured-stack span { font-family: var(--mono); font-size: 11px; color: var(--accent); background: var(--accent-glow); border: 1px solid rgba(56,189,248,0.25); padding: 4px 10px; border-radius: 4px; }
+
+/* PROJECT CARDS */
+.projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.project-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); padding: 1.4rem; display: flex; flex-direction: column; gap: 0.75rem; transition: border-color 0.2s, transform 0.2s; }
+.project-card:hover { border-color: var(--border2); transform: translateY(-3px); }
+.project-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; }
+.project-top h3 { font-size: 15px; font-weight: 500; color: var(--text); line-height: 1.3; }
+.project-links { display: flex; gap: 10px; flex-shrink: 0; }
+.project-links a { font-family: var(--mono); font-size: 11px; color: var(--text3); transition: color 0.2s; }
+.project-links a:hover { color: var(--accent); opacity: 1; }
+.project-links .link-live { color: var(--green); }
+.project-card > p { font-size: 13px; color: var(--text2); line-height: 1.6; }
+.stack-pills { display: flex; flex-wrap: wrap; gap: 5px; margin-top: auto; padding-top: 0.5rem; }
+.stack-pills span { font-family: var(--mono); font-size: 10px; color: var(--text3); background: var(--surface2); border: 1px solid var(--border); padding: 3px 8px; border-radius: 4px; }
+
+/* EXPERIENCE */
+.exp-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); padding: 1.75rem 2rem; display: flex; gap: 2.5rem; }
+.exp-left { flex-shrink: 0; min-width: 150px; }
+.exp-company { font-size: 13px; font-weight: 500; color: var(--accent); margin-bottom: 0.3rem; }
+.exp-period { font-family: var(--mono); font-size: 11px; color: var(--text3); }
+.exp-right h3 { font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 0.9rem; }
+
+/* SKILLS */
+.skills-grid { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); padding: 1.75rem 2rem; display: flex; flex-direction: column; gap: 1.1rem; }
+.skill-group { display: flex; align-items: flex-start; gap: 2rem; }
+.skill-group-title { font-family: var(--mono); font-size: 11px; color: var(--text3); letter-spacing: 0.06em; min-width: 140px; padding-top: 5px; }
+.skill-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+.skill-pills span { font-size: 12px; color: var(--text2); background: var(--surface2); border: 1px solid var(--border); padding: 4px 11px; border-radius: 100px; }
+
+/* EDUCATION */
+.edu-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); padding: 1.75rem 2rem; display: flex; align-items: center; gap: 2.5rem; }
+.edu-left { flex-shrink: 0; text-align: center; min-width: 100px; }
+.edu-badge { font-family: var(--mono); font-size: 22px; font-weight: 500; color: var(--accent); margin-bottom: 0.25rem; }
+.edu-period { font-family: var(--mono); font-size: 11px; color: var(--text3); }
+.edu-right h3 { font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 0.3rem; }
+.edu-right p { font-size: 13px; color: var(--text2); }
+
+/* FOOTER */
+.footer { border-top: 1px solid var(--border); padding: 2rem 3rem; margin-top: 2rem; }
+.footer-inner { max-width: var(--max-w); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-family: var(--mono); font-size: 11px; color: var(--text3); }
+.footer-links { display: flex; gap: 1.25rem; }
+.footer-links a { color: var(--text3); font-size: 11px; transition: color 0.2s; }
+.footer-links a:hover { color: var(--accent); opacity: 1; }
+
+/* RESPONSIVE */
+@media (max-width: 900px) { .modules-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 650px) {
+  .topnav { padding: 0 1.25rem; }
+  .nav-links a:not(.nav-resume) { display: none; }
+  .hero { padding: 110px 1.25rem 60px; }
+  .hero-graphic { display: none; }
+  main { padding: 0 1.25rem; }
+  .section { padding: 50px 0; }
+  .featured-header { flex-direction: column; }
+  .btn-primary { width: 100%; justify-content: center; }
+  .modules-grid { grid-template-columns: 1fr; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .exp-card { flex-direction: column; gap: 1rem; }
+  .edu-card { flex-direction: column; gap: 1rem; text-align: center; }
+  .skill-group { flex-direction: column; gap: 0.5rem; }
+  .skill-group-title { min-width: unset; }
+  .footer { padding: 2rem 1.25rem; }
+  .footer-inner { flex-direction: column; align-items: flex-start; }
+}
+</style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav class="topnav">
   <span class="nav-logo">KA</span>
   <div class="nav-links">
@@ -23,36 +157,30 @@
   </div>
 </nav>
 
-<!-- HERO -->
 <header class="hero" id="hero">
   <div class="hero-inner">
     <div class="hero-badge">Available for Data Science Roles</div>
     <h1>Kirubia A</h1>
     <p class="hero-sub">B.Tech in AI &amp; Data Science · CGPA 8.2 · Chennai, India</p>
-    <p class="hero-desc">
-      I build end-to-end machine learning pipelines and data products — from messy raw data to actionable insights. 
-      Specialized in predictive modelling, clustering, causal analysis, and interactive dashboards.
-    </p>
+    <p class="hero-desc">I build end-to-end machine learning pipelines and data products — from messy raw data to actionable insights. Specialized in predictive modelling, clustering, causal analysis, and interactive dashboards.</p>
     <div class="hero-links">
       <a href="https://github.com/Kirubia" target="_blank" class="btn-outline">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z"/></svg>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z"/></svg>
         GitHub
       </a>
       <a href="https://www.linkedin.com/in/kirubia-a-929068320/" target="_blank" class="btn-outline">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
         LinkedIn
       </a>
       <a href="mailto:kirubiaabel03@gmail.com" class="btn-outline">✉ Email</a>
+      <a href="resume.pdf" download class="btn-outline">↓ Resume</a>
     </div>
   </div>
-  <div class="hero-graphic" aria-hidden="true">
-    <div class="grid-dots"></div>
-  </div>
+  <div class="hero-graphic" aria-hidden="true"><div class="grid-dots"></div></div>
 </header>
 
 <main>
 
-<!-- FEATURED -->
 <section class="section" id="featured">
   <div class="section-label">Featured Project</div>
   <div class="featured-card reveal">
@@ -64,57 +192,41 @@
       </div>
       <a href="https://github.com/Kirubia/Global-AI-ADOPTION-WORKPLACE-IMPACT" target="_blank" class="btn-primary">View on GitHub →</a>
     </div>
-
     <div class="modules-grid">
       <div class="module-card">
         <div class="module-num">01</div>
         <h4>Adoption Classifier</h4>
         <p>XGBoost multi-class model predicts AI stage (none / pilot / partial / full)</p>
-        <div class="metrics">
-          <span><strong>F1</strong> 0.83</span>
-          <span><strong>ROC-AUC</strong> 0.98</span>
-        </div>
+        <div class="metrics"><span><strong>F1</strong> 0.83</span><span><strong>ROC-AUC</strong> 0.98</span></div>
       </div>
       <div class="module-card">
         <div class="module-num">02</div>
         <h4>Maturity Segmentation</h4>
-        <p>K-Means (k=4) clustering segments 10k companies — AI Leaders show 3.6× revenue growth vs. laggards</p>
-        <div class="metrics">
-          <span><strong>4</strong> clusters</span>
-          <span><strong>3.6×</strong> top vs bottom</span>
-        </div>
+        <p>K-Means (k=4) clusters 10k companies — AI Leaders show 3.6× revenue growth vs. laggards</p>
+        <div class="metrics"><span><strong>4</strong> clusters</span><span><strong>3.6×</strong> top vs bottom</span></div>
       </div>
       <div class="module-card">
         <div class="module-num">03</div>
         <h4>ROI Regression</h4>
-        <p>LightGBM with SHAP explainability estimates revenue growth and cost reduction from AI investment signals</p>
-        <div class="metrics">
-          <span><strong>SHAP</strong> explained</span>
-          <span><strong>Optuna</strong> tuned</span>
-        </div>
+        <p>LightGBM with SHAP explainability to estimate revenue growth &amp; cost reduction</p>
+        <div class="metrics"><span><strong>SHAP</strong> explained</span><span><strong>Optuna</strong> tuned</span></div>
       </div>
       <div class="module-card">
         <div class="module-num">04</div>
         <h4>Ethics &amp; Risk Analysis</h4>
-        <p>OLS regression with 14 confounders revealed reverse causality — ethics committees respond to risk, not cause it</p>
-        <div class="metrics">
-          <span><strong>OR 0.29</strong> adoption</span>
-          <span><strong>Causal</strong> analysis</span>
-        </div>
+        <p>OLS with 14 confounders revealed reverse causality — ethics committees respond to risk</p>
+        <div class="metrics"><span><strong>OR 0.29</strong> adoption</span><span><strong>Causal</strong> analysis</span></div>
       </div>
     </div>
-
     <div class="featured-stack">
       <span>Python</span><span>XGBoost</span><span>LightGBM</span><span>K-Means</span><span>SHAP</span><span>Optuna</span><span>Streamlit</span><span>GroupShuffleSplit</span>
     </div>
   </div>
 </section>
 
-<!-- PROJECTS -->
 <section class="section" id="projects">
   <div class="section-label">Projects</div>
   <div class="projects-grid">
-
     <div class="project-card reveal">
       <div class="project-top">
         <h3>India Housing Price Analysis</h3>
@@ -123,23 +235,18 @@
           <a href="https://india-housing-eda-aduczswxsawybpovr5pscc.streamlit.app/" target="_blank" class="link-live">Live ↗</a>
         </div>
       </div>
-      <p>End-to-end analytics project covering data cleaning, feature engineering, EDA, and a deployed Streamlit dashboard for housing price trends across Indian cities.</p>
+      <p>End-to-end analytics covering data cleaning, feature engineering, EDA, and a deployed Streamlit dashboard for housing price trends across Indian cities.</p>
       <ul>
         <li>Handled missing values, standardized formats, created new analytical features</li>
         <li>Identified location and property type as primary price drivers</li>
         <li>Deployed interactive dashboard with filters and summary metrics</li>
       </ul>
-      <div class="stack-pills">
-        <span>Python</span><span>Pandas</span><span>Seaborn</span><span>Streamlit</span><span>Feature Engineering</span>
-      </div>
+      <div class="stack-pills"><span>Python</span><span>Pandas</span><span>Seaborn</span><span>Streamlit</span><span>Feature Engineering</span></div>
     </div>
-
     <div class="project-card reveal">
       <div class="project-top">
         <h3>Sales Data Analysis</h3>
-        <div class="project-links">
-          <a href="https://github.com/Kirubia/Sales_Analytics" target="_blank">GitHub</a>
-        </div>
+        <div class="project-links"><a href="https://github.com/Kirubia/Sales_Analytics" target="_blank">GitHub</a></div>
       </div>
       <p>Analyzed 9,800+ records to uncover sales performance trends, profitability drivers, and customer behaviour patterns.</p>
       <ul>
@@ -147,17 +254,12 @@
         <li>Quantified discount impact on profitability by category</li>
         <li>Delivered actionable insights for business decision-making</li>
       </ul>
-      <div class="stack-pills">
-        <span>Python</span><span>Tableau</span><span>Excel</span><span>KPI Analysis</span>
-      </div>
+      <div class="stack-pills"><span>Python</span><span>Tableau</span><span>Excel</span><span>KPI Analysis</span></div>
     </div>
-
     <div class="project-card reveal">
       <div class="project-top">
         <h3>Bike Sales Analysis</h3>
-        <div class="project-links">
-          <a href="https://github.com/Kirubia/Bike-Dekho-Project" target="_blank">GitHub</a>
-        </div>
+        <div class="project-links"><a href="https://github.com/Kirubia/Bike-Dekho-Project" target="_blank">GitHub</a></div>
       </div>
       <p>Excel-based analysis of used bike sales data to identify pricing factors and market trends.</p>
       <ul>
@@ -165,30 +267,21 @@
         <li>Built pivot table dashboard to visualize pricing variation</li>
         <li>Identified key factors driving price differences across brands and cities</li>
       </ul>
-      <div class="stack-pills">
-        <span>Excel</span><span>Pivot Tables</span><span>Dashboard</span><span>Data Analysis</span>
-      </div>
+      <div class="stack-pills"><span>Excel</span><span>Pivot Tables</span><span>Dashboard</span><span>Data Analysis</span></div>
     </div>
-
     <div class="project-card reveal">
-      <div class="project-top">
-        <h3>Cirrhosis Disease Prediction</h3>
-      </div>
-      <p>ML classification model predicting disease outcomes from clinical data — focused on handling class imbalance and robust evaluation.</p>
+      <div class="project-top"><h3>Cirrhosis Disease Prediction</h3></div>
+      <p>ML classification model predicting disease outcomes from clinical data — focused on class imbalance and robust evaluation.</p>
       <ul>
         <li>Applied encoding, scaling, and missing value imputation</li>
         <li>Handled class imbalance across multiple classification models</li>
         <li>Evaluated with accuracy, precision, recall, and F1-score</li>
       </ul>
-      <div class="stack-pills">
-        <span>Python</span><span>Scikit-learn</span><span>Classification</span><span>Class Imbalance</span>
-      </div>
+      <div class="stack-pills"><span>Python</span><span>Scikit-learn</span><span>Classification</span><span>Class Imbalance</span></div>
     </div>
-
   </div>
 </section>
 
-<!-- EXPERIENCE -->
 <section class="section" id="experience">
   <div class="section-label">Experience</div>
   <div class="exp-card reveal">
@@ -209,44 +302,32 @@
   </div>
 </section>
 
-<!-- SKILLS -->
 <section class="section" id="skills">
   <div class="section-label">Skills</div>
   <div class="skills-grid reveal">
     <div class="skill-group">
       <div class="skill-group-title">Languages</div>
-      <div class="skill-pills">
-        <span>Python</span><span>SQL</span>
-      </div>
+      <div class="skill-pills"><span>Python</span><span>SQL</span></div>
     </div>
     <div class="skill-group">
       <div class="skill-group-title">ML &amp; Modelling</div>
-      <div class="skill-pills">
-        <span>XGBoost</span><span>LightGBM</span><span>Scikit-learn</span><span>SHAP</span><span>Optuna</span><span>K-Means</span><span>Classification</span><span>Regression</span>
-      </div>
+      <div class="skill-pills"><span>XGBoost</span><span>LightGBM</span><span>Scikit-learn</span><span>SHAP</span><span>Optuna</span><span>K-Means</span><span>Classification</span><span>Regression</span></div>
     </div>
     <div class="skill-group">
       <div class="skill-group-title">Data &amp; Analysis</div>
-      <div class="skill-pills">
-        <span>Pandas</span><span>NumPy</span><span>EDA</span><span>Feature Engineering</span><span>Statistical Analysis</span><span>Data Cleaning</span>
-      </div>
+      <div class="skill-pills"><span>Pandas</span><span>NumPy</span><span>EDA</span><span>Feature Engineering</span><span>Statistical Analysis</span><span>Data Cleaning</span></div>
     </div>
     <div class="skill-group">
       <div class="skill-group-title">Visualisation</div>
-      <div class="skill-pills">
-        <span>Matplotlib</span><span>Seaborn</span><span>Tableau</span><span>Power BI</span><span>Streamlit</span><span>Excel</span>
-      </div>
+      <div class="skill-pills"><span>Matplotlib</span><span>Seaborn</span><span>Tableau</span><span>Power BI</span><span>Streamlit</span><span>Excel</span></div>
     </div>
     <div class="skill-group">
       <div class="skill-group-title">Tools</div>
-      <div class="skill-pills">
-        <span>Jupyter</span><span>GitHub</span><span>MySQL</span>
-      </div>
+      <div class="skill-pills"><span>Jupyter</span><span>GitHub</span><span>MySQL</span></div>
     </div>
   </div>
 </section>
 
-<!-- EDUCATION -->
 <section class="section" id="education">
   <div class="section-label">Education</div>
   <div class="edu-card reveal">
@@ -263,7 +344,6 @@
 
 </main>
 
-<!-- FOOTER -->
 <footer class="footer">
   <div class="footer-inner">
     <span>Kirubia A · kirubiaabel03@gmail.com · +91 9363333824</span>
@@ -275,6 +355,19 @@
   </div>
 </footer>
 
-<script src="script.js"></script>
+<script>
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.reveal').forEach((el, i) => { el.style.transitionDelay = `${(i % 4) * 80}ms`; observer.observe(el); });
+const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) navLinks.forEach(l => { l.style.color = l.getAttribute('href') === `#${entry.target.id}` ? 'var(--text)' : ''; });
+  });
+}, { threshold: 0.4 }).observe(...document.querySelectorAll('section[id], header[id]'));
+</script>
 </body>
 </html>
