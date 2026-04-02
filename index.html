@@ -24,7 +24,7 @@
       --radius-sm: 8px;
     }
 
-    html { scroll-behavior: smooth; }
+    html, body { scroll-behavior: smooth; width: 100%; overflow-x: hidden; }
 
     body {
       font-family: 'DM Sans', sans-serif;
@@ -43,11 +43,20 @@
       background: rgba(247,245,240,0.88);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
-      padding: 0 2rem;
+      width: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
       height: 60px;
+      padding: 0 2rem;
+    }
+    .nav-inner {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
     .nav-logo {
       font-family: 'DM Serif Display', serif;
@@ -160,12 +169,10 @@
     .hero-links a:hover { color: var(--accent); }
 
     /* AVATAR */
-    .avatar-wrap {
-      flex-shrink: 0;
-    }
+    .avatar-wrap { flex-shrink: 0; }
     .avatar {
-      width: 160px;
-      height: 160px;
+      width: 220px;
+      height: 220px;
       border-radius: 50%;
       object-fit: cover;
       border: 4px solid var(--surface);
@@ -363,10 +370,15 @@
     /* FOOTER */
     footer {
       border-top: 1px solid var(--border);
-      padding: 2rem;
       text-align: center;
       font-size: 0.8rem;
       color: var(--text3);
+      width: 100%;
+    }
+    footer .footer-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem;
     }
 
     /* MOBILE */
@@ -377,21 +389,23 @@
       .hero { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 0 2rem; }
       .hero-wrap { order: 2; }
       .avatar-wrap { order: 1; }
-      .avatar { width: 100px; height: 100px; }
+      .avatar { width: 130px; height: 130px; }
     }
   </style>
 </head>
 <body>
 
 <nav>
-  <a class="nav-logo" href="#">Kirubia A</a>
-  <ul class="nav-links">
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <a class="btn btn-outline" href="resume.pdf" target="_blank" style="font-size:0.8rem; padding: 7px 16px;">Resume ↗</a>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">Kirubia A</a>
+    <ul class="nav-links">
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="btn btn-outline" href="resume.pdf" target="_blank" style="font-size:0.8rem; padding: 7px 16px;">Resume ↗</a>
+  </div>
 </nav>
 
 <div class="container">
@@ -399,7 +413,7 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-wrap">
-      <div class="hero-badge">Open to Data Science Roles</div>
+      <div class="hero-badge">Open to Data Science, Analytics Roles</div>
       <h1>I build <em>data-driven</em><br/>solutions that create<br/>real business impact.</h1>
       <p>Data Science graduate skilled in Machine Learning, analytics, and dashboard development. I turn raw data into meaningful insights using Python, SQL, and visualization tools.</p>
       <div class="hero-cta">
@@ -462,6 +476,7 @@
       </div>
       <div class="card-links">
         <a class="card-link" href="https://github.com/Kirubia/Global-AI-ADOPTION-WORKPLACE-IMPACT" target="_blank">View on GitHub ↗</a>
+        <a class="card-link" href="https://global-ai-adoption-workplace-impact-m5tytcqf4y28237mev4rmk.streamlit.app/" target="_blank">Live Demo</a>
       </div>
     </div>
   </section>
@@ -614,7 +629,7 @@
   <section id="contact">
     <div class="cta-section">
       <div class="section-label">Let's Talk</div>
-      <h2>Open to Data Science &amp; AI Roles</h2>
+      <h2>Open to Data Science &amp; Analytics &amp; AI Roles</h2>
       <p>Looking for opportunities where I can make a real impact with data. Let's connect!</p>
       <div style="display:flex; gap:0.75rem; justify-content:center; flex-wrap:wrap;">
         <a class="btn btn-primary" href="mailto:kirubiaabel03@gmail.com">✉ kirubiaabel03@gmail.com</a>
@@ -627,7 +642,7 @@
 </div>
 
 <footer>
-  © 2025 Kirubia A — Built with care
+  <div class="footer-inner">© 2025 Kirubia A — Built with care</div>
 </footer>
 
 </body>
