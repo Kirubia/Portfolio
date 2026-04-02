@@ -3,20 +3,20 @@
 
 /* ── TOKENS ──────────────────────────── */
 :root {
-  --bg:        #080c14;
-  --bg2:       #0d1220;
-  --bg3:       #111827;
-  --surface:   #151d2e;
-  --surface2:  #1a2438;
-  --border:    rgba(255,255,255,0.07);
-  --border2:   rgba(255,255,255,0.12);
+  --bg:        #1c2333;
+  --bg2:       #232e42;
+  --bg3:       #253044;
+  --surface:   #2a374f;
+  --surface2:  #314158;
+  --border:    rgba(255,255,255,0.09);
+  --border2:   rgba(255,255,255,0.16);
   --accent:    #38bdf8;
   --accent2:   #0ea5e9;
   --accent-glow: rgba(56,189,248,0.15);
   --green:     #4ade80;
   --text:      #f1f5f9;
-  --text2:     #94a3b8;
-  --text3:     #64748b;
+  --text2:     #b0bdd0;
+  --text3:     #7d8fa8;
   --mono:      'DM Mono', monospace;
   --sans:      'DM Sans', sans-serif;
   --radius-sm: 6px;
@@ -35,6 +35,7 @@ body {
   line-height: 1.65;
   font-size: 15px;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 a { color: var(--accent); text-decoration: none; transition: opacity 0.2s; }
@@ -53,9 +54,10 @@ li { margin-bottom: 0.35rem; color: var(--text2); font-size: 14px; }
   justify-content: space-between;
   padding: 0 2rem;
   height: 56px;
-  background: rgba(8, 12, 20, 0.88);
+  background: rgba(28, 35, 51, 0.92);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
+  width: 100%;
 }
 
 .nav-logo {
@@ -103,6 +105,7 @@ li { margin-bottom: 0.35rem; color: var(--text2); font-size: 14px; }
   align-items: center;
   overflow: hidden;
   border-bottom: 1px solid var(--border);
+  width: 100%;
 }
 
 .hero-inner {
@@ -216,6 +219,7 @@ main {
   max-width: var(--max-w);
   margin: 0 auto;
   padding: 0 2rem;
+  width: 100%;
 }
 
 .section {
@@ -325,7 +329,7 @@ main {
 }
 
 .module-card {
-  background: var(--bg2);
+  background: var(--surface2);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   padding: 1.1rem 1.2rem;
@@ -348,7 +352,7 @@ main {
 
 .module-card p {
   font-size: 12px;
-  color: var(--text3);
+  color: var(--text2);
   line-height: 1.55;
   margin-bottom: 0.75rem;
 }
@@ -462,7 +466,7 @@ main {
   font-family: var(--mono);
   font-size: 10px;
   color: var(--text3);
-  background: var(--bg2);
+  background: var(--surface2);
   border: 1px solid var(--border);
   padding: 3px 8px;
   border-radius: 4px;
@@ -538,7 +542,7 @@ main {
 .skill-pills span {
   font-size: 12px;
   color: var(--text2);
-  background: var(--bg2);
+  background: var(--surface2);
   border: 1px solid var(--border);
   padding: 4px 10px;
   border-radius: 100px;
