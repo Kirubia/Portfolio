@@ -1,373 +1,634 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kirubia A — Data Science Portfolio</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --bg: #1c2333; --bg2: #232e42; --surface: #2a374f; --surface2: #314158;
-  --border: rgba(255,255,255,0.09); --border2: rgba(255,255,255,0.16);
-  --accent: #38bdf8; --accent2: #0ea5e9; --accent-glow: rgba(56,189,248,0.15);
-  --green: #4ade80; --text: #f1f5f9; --text2: #b0bdd0; --text3: #7d8fa8;
-  --mono: 'DM Mono', monospace; --sans: 'DM Sans', sans-serif;
-  --r-sm: 6px; --r-md: 10px; --r-lg: 16px; --max-w: 1100px;
-}
-html { scroll-behavior: smooth; }
-body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.65; font-size: 15px; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-a { color: var(--accent); text-decoration: none; transition: opacity 0.2s; }
-a:hover { opacity: 0.75; }
-ul { padding-left: 1.25rem; }
-li { margin-bottom: 0.35rem; color: var(--text2); font-size: 14px; }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kirubia A | Data Scientist</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* NAV */
-.topnav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 3rem; height: 56px; background: rgba(28,35,51,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
-.nav-logo { font-family: var(--mono); font-size: 14px; font-weight: 500; color: var(--accent); letter-spacing: 0.08em; }
-.nav-links { display: flex; align-items: center; gap: 1.5rem; }
-.nav-links a { font-size: 13px; color: var(--text2); transition: color 0.2s; }
-.nav-links a:hover { color: var(--text); opacity: 1; }
-.nav-resume { color: var(--accent) !important; font-family: var(--mono); font-size: 13px; border: 1px solid rgba(56,189,248,0.35); padding: 5px 12px; border-radius: var(--r-sm); transition: background 0.2s; }
-.nav-resume:hover { background: var(--accent); color: #000 !important; opacity: 1; }
+    :root {
+      --bg: #f7f5f0;
+      --surface: #ffffff;
+      --surface2: #f0ede6;
+      --border: #e2ddd5;
+      --accent: #2563eb;
+      --accent-soft: #dbeafe;
+      --text: #1a1816;
+      --text2: #5c5650;
+      --text3: #9c9690;
+      --tag-bg: #eef2ff;
+      --tag-text: #3730a3;
+      --radius: 14px;
+      --radius-sm: 8px;
+    }
 
-/* HERO */
-.hero { position: relative; padding: 130px 3rem 90px; overflow: hidden; border-bottom: 1px solid var(--border); }
-.hero-inner { max-width: var(--max-w); margin: 0 auto; position: relative; z-index: 1; }
-.hero-badge { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; color: var(--green); background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.25); padding: 5px 12px; border-radius: 100px; margin-bottom: 1.5rem; }
-.hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-.hero h1 { font-size: clamp(2.2rem, 4vw, 3.4rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; color: var(--text); margin-bottom: 0.6rem; }
-.hero-sub { font-family: var(--mono); font-size: 13px; color: var(--text3); margin-bottom: 1.25rem; letter-spacing: 0.02em; }
-.hero-desc { font-size: 16px; color: var(--text2); max-width: 640px; line-height: 1.7; margin-bottom: 2rem; }
-.hero-links { display: flex; flex-wrap: wrap; gap: 0.75rem; }
-.btn-outline { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; color: var(--text2); border: 1px solid var(--border2); padding: 8px 16px; border-radius: var(--r-sm); background: var(--surface); transition: border-color 0.2s, color 0.2s, background 0.2s; }
-.btn-outline:hover { color: var(--text); border-color: rgba(255,255,255,0.25); background: var(--surface2); opacity: 1; }
-.hero-graphic { position: absolute; top: 0; right: 0; width: 50%; height: 100%; overflow: hidden; pointer-events: none; }
-.grid-dots { position: absolute; top: 0; right: 0; width: 100%; height: 100%; background-image: radial-gradient(circle, rgba(56,189,248,0.18) 1px, transparent 1px); background-size: 32px 32px; mask-image: radial-gradient(ellipse 70% 100% at 100% 50%, black 30%, transparent 100%); -webkit-mask-image: radial-gradient(ellipse 70% 100% at 100% 50%, black 30%, transparent 100%); }
+    html { scroll-behavior: smooth; }
 
-/* LAYOUT */
-main { max-width: var(--max-w); margin: 0 auto; padding: 0 3rem; width: 100%; }
-.section { padding: 72px 0; border-bottom: 1px solid var(--border); }
-.section:last-child { border-bottom: none; }
-.section-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; color: var(--accent); text-transform: uppercase; margin-bottom: 2rem; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
 
-/* REVEAL */
-.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(247,245,240,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+    .nav-logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text2);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
 
-/* FEATURED */
-.featured-card { background: var(--surface); border: 1px solid var(--border2); border-radius: var(--r-lg); padding: 2rem; position: relative; overflow: hidden; }
-.featured-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), transparent); }
-.featured-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
-.project-tag { display: inline-block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; padding: 4px 10px; border-radius: 100px; margin-bottom: 0.6rem; }
-.project-tag.completed { color: var(--green); background: rgba(74,222,128,0.1); border: 1px solid rgba(74,222,128,0.25); }
-.featured-title { font-size: 1.4rem; font-weight: 600; letter-spacing: -0.02em; color: var(--text); margin-bottom: 0.6rem; }
-.featured-desc { font-size: 14px; color: var(--text2); line-height: 1.65; max-width: 560px; }
-.btn-primary { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: #000; background: var(--accent); padding: 9px 18px; border-radius: var(--r-sm); white-space: nowrap; transition: background 0.2s; flex-shrink: 0; }
-.btn-primary:hover { background: var(--accent2); opacity: 1; }
-.modules-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 1.5rem; }
-.module-card { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--r-md); padding: 1rem 1.1rem; }
-.module-num { font-family: var(--mono); font-size: 11px; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 0.4rem; }
-.module-card h4 { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 0.4rem; }
-.module-card p { font-size: 12px; color: var(--text2); line-height: 1.55; margin-bottom: 0.75rem; }
-.metrics { display: flex; gap: 8px; flex-wrap: wrap; }
-.metrics span { font-family: var(--mono); font-size: 11px; color: var(--text2); background: var(--bg2); border: 1px solid var(--border); padding: 3px 8px; border-radius: 4px; }
-.metrics strong { color: var(--accent); }
-.featured-stack { display: flex; flex-wrap: wrap; gap: 6px; padding-top: 1.25rem; border-top: 1px solid var(--border); }
-.featured-stack span { font-family: var(--mono); font-size: 11px; color: var(--accent); background: var(--accent-glow); border: 1px solid rgba(56,189,248,0.25); padding: 4px 10px; border-radius: 4px; }
+    /* LAYOUT */
+    .container { max-width: 1000px; margin: 0 auto; padding: 0 2rem; }
 
-/* PROJECT CARDS */
-.projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-.project-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); padding: 1.4rem; display: flex; flex-direction: column; gap: 0.75rem; transition: border-color 0.2s, transform 0.2s; }
-.project-card:hover { border-color: var(--border2); transform: translateY(-3px); }
-.project-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 0.5rem; }
-.project-top h3 { font-size: 15px; font-weight: 500; color: var(--text); line-height: 1.3; }
-.project-links { display: flex; gap: 10px; flex-shrink: 0; }
-.project-links a { font-family: var(--mono); font-size: 11px; color: var(--text3); transition: color 0.2s; }
-.project-links a:hover { color: var(--accent); opacity: 1; }
-.project-links .link-live { color: var(--green); }
-.project-card > p { font-size: 13px; color: var(--text2); line-height: 1.6; }
-.stack-pills { display: flex; flex-wrap: wrap; gap: 5px; margin-top: auto; padding-top: 0.5rem; }
-.stack-pills span { font-family: var(--mono); font-size: 10px; color: var(--text3); background: var(--surface2); border: 1px solid var(--border); padding: 3px 8px; border-radius: 4px; }
+    /* HERO */
+    .hero {
+      padding: 5rem 0 4rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 3rem;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #dcfce7;
+      color: #166534;
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 99px;
+      margin-bottom: 1.5rem;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: #16a34a;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--text2);
+      max-width: 540px;
+      margin-bottom: 2rem;
+    }
+    .hero-cta { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); }
+    .btn-outline {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
 
-/* EXPERIENCE */
-.exp-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); padding: 1.75rem 2rem; display: flex; gap: 2.5rem; }
-.exp-left { flex-shrink: 0; min-width: 150px; }
-.exp-company { font-size: 13px; font-weight: 500; color: var(--accent); margin-bottom: 0.3rem; }
-.exp-period { font-family: var(--mono); font-size: 11px; color: var(--text3); }
-.exp-right h3 { font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 0.9rem; }
+    .hero-links {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .hero-links a {
+      font-size: 0.8rem;
+      color: var(--text3);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.2s;
+    }
+    .hero-links a:hover { color: var(--accent); }
 
-/* SKILLS */
-.skills-grid { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); padding: 1.75rem 2rem; display: flex; flex-direction: column; gap: 1.1rem; }
-.skill-group { display: flex; align-items: flex-start; gap: 2rem; }
-.skill-group-title { font-family: var(--mono); font-size: 11px; color: var(--text3); letter-spacing: 0.06em; min-width: 140px; padding-top: 5px; }
-.skill-pills { display: flex; flex-wrap: wrap; gap: 6px; }
-.skill-pills span { font-size: 12px; color: var(--text2); background: var(--surface2); border: 1px solid var(--border); padding: 4px 11px; border-radius: 100px; }
+    /* AVATAR */
+    .avatar-wrap {
+      flex-shrink: 0;
+    }
+    .avatar {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--surface);
+      box-shadow: 0 0 0 1px var(--border);
+    }
 
-/* EDUCATION */
-.edu-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-md); padding: 1.75rem 2rem; display: flex; align-items: center; gap: 2.5rem; }
-.edu-left { flex-shrink: 0; text-align: center; min-width: 100px; }
-.edu-badge { font-family: var(--mono); font-size: 22px; font-weight: 500; color: var(--accent); margin-bottom: 0.25rem; }
-.edu-period { font-family: var(--mono); font-size: 11px; color: var(--text3); }
-.edu-right h3 { font-size: 16px; font-weight: 500; color: var(--text); margin-bottom: 0.3rem; }
-.edu-right p { font-size: 13px; color: var(--text2); }
+    /* SECTION */
+    section { padding: 4rem 0; }
+    .section-label {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 4px 10px;
+      border-radius: 99px;
+      margin-bottom: 1rem;
+    }
+    h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      color: var(--text);
+      margin-bottom: 2rem;
+    }
 
-/* FOOTER */
-.footer { border-top: 1px solid var(--border); padding: 2rem 3rem; margin-top: 2rem; }
-.footer-inner { max-width: var(--max-w); margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-family: var(--mono); font-size: 11px; color: var(--text3); }
-.footer-links { display: flex; gap: 1.25rem; }
-.footer-links a { color: var(--text3); font-size: 11px; transition: color 0.2s; }
-.footer-links a:hover { color: var(--accent); opacity: 1; }
+    /* DIVIDER */
+    hr { border: none; border-top: 1px solid var(--border); }
 
-/* RESPONSIVE */
-@media (max-width: 900px) { .modules-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 650px) {
-  .topnav { padding: 0 1.25rem; }
-  .nav-links a:not(.nav-resume) { display: none; }
-  .hero { padding: 110px 1.25rem 60px; }
-  .hero-graphic { display: none; }
-  main { padding: 0 1.25rem; }
-  .section { padding: 50px 0; }
-  .featured-header { flex-direction: column; }
-  .btn-primary { width: 100%; justify-content: center; }
-  .modules-grid { grid-template-columns: 1fr; }
-  .projects-grid { grid-template-columns: 1fr; }
-  .exp-card { flex-direction: column; gap: 1rem; }
-  .edu-card { flex-direction: column; gap: 1rem; text-align: center; }
-  .skill-group { flex-direction: column; gap: 0.5rem; }
-  .skill-group-title { min-width: unset; }
-  .footer { padding: 2rem 1.25rem; }
-  .footer-inner { flex-direction: column; align-items: flex-start; }
-}
-</style>
+    /* FEATURED PROJECT */
+    .featured-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .featured-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #2563eb, #7c3aed);
+    }
+    .featured-card h3 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.4rem;
+      margin-bottom: 0.75rem;
+    }
+    .featured-card p {
+      color: var(--text2);
+      margin-bottom: 1.25rem;
+      max-width: 600px;
+    }
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+    }
+    .metric {
+      background: var(--surface2);
+      border-radius: var(--radius-sm);
+      padding: 0.875rem 1rem;
+      border: 1px solid var(--border);
+    }
+    .metric-val {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.3rem;
+      color: var(--accent);
+    }
+    .metric-label { font-size: 0.78rem; color: var(--text3); }
+
+    /* PROJECT GRID */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .project-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .project-card h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    .project-card p {
+      font-size: 0.875rem;
+      color: var(--text2);
+      flex: 1;
+      margin-bottom: 1rem;
+    }
+    .card-links { display: flex; gap: 0.5rem; margin-top: auto; }
+    .card-link {
+      font-size: 0.78rem;
+      color: var(--accent);
+      text-decoration: none;
+      border: 1px solid currentColor;
+      padding: 4px 10px;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+    .card-link:hover { background: var(--accent-soft); }
+
+    /* TAGS */
+    .tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+    .tag {
+      font-size: 0.72rem;
+      font-weight: 500;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      padding: 3px 9px;
+      border-radius: 6px;
+    }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .skill-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+    }
+    .skill-block h4 {
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text3);
+      margin-bottom: 0.5rem;
+    }
+    .skill-block p { font-size: 0.875rem; color: var(--text2); line-height: 1.6; }
+
+    /* EXPERIENCE */
+    .exp-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+    }
+    .exp-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem; }
+    .exp-title { font-size: 1.05rem; font-weight: 600; }
+    .exp-company { color: var(--accent); font-size: 0.9rem; }
+    .exp-date { font-size: 0.8rem; color: var(--text3); padding: 4px 10px; background: var(--surface2); border-radius: 6px; white-space: nowrap; }
+    .exp-card ul { padding-left: 1.2rem; }
+    .exp-card li { font-size: 0.9rem; color: var(--text2); margin-bottom: 0.3rem; }
+
+    /* WHAT I BRING */
+    .bring-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+    .bring-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+    }
+    .bring-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 2px; }
+    .bring-item p { font-size: 0.875rem; color: var(--text2); }
+
+    /* CTA */
+    .cta-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 3rem 2rem;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    .cta-section h2 { margin-bottom: 0.75rem; }
+    .cta-section p { color: var(--text2); margin-bottom: 1.5rem; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text3);
+    }
+
+    /* MOBILE */
+    @media (max-width: 640px) {
+      nav { padding: 0 1rem; }
+      .nav-links { display: none; }
+      .container { padding: 0 1rem; }
+      .hero { grid-template-columns: 1fr; gap: 2rem; padding: 3rem 0 2rem; }
+      .hero-wrap { order: 2; }
+      .avatar-wrap { order: 1; }
+      .avatar { width: 100px; height: 100px; }
+    }
+  </style>
 </head>
 <body>
 
-<nav class="topnav">
-  <span class="nav-logo">KA</span>
-  <div class="nav-links">
-    <a href="#projects">Projects</a>
-    <a href="#experience">Experience</a>
-    <a href="#skills">Skills</a>
-    <a href="#education">Education</a>
-    <a href="resume.pdf" download class="nav-resume">Resume ↓</a>
-  </div>
+<nav>
+  <a class="nav-logo" href="#">Kirubia A</a>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="btn btn-outline" href="resume.pdf" target="_blank" style="font-size:0.8rem; padding: 7px 16px;">Resume ↗</a>
 </nav>
 
-<header class="hero" id="hero">
-  <div class="hero-inner">
-    <div class="hero-badge">Available for Data Science, Data Analyst Roles</div>
-    <h1>Kirubia A</h1>
-    <p class="hero-sub">B.Tech in AI &amp; Data Science · CGPA 8.2 · Chennai, India</p>
-    <p class="hero-desc">I build end-to-end machine learning pipelines and data products — from messy raw data to actionable insights. Specialized in predictive modelling, clustering, causal analysis, and interactive dashboards.</p>
-    <div class="hero-links">
-      <a href="https://github.com/Kirubia" target="_blank" class="btn-outline">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0012 2z"/></svg>
-        GitHub
-      </a>
-      <a href="https://www.linkedin.com/in/kirubia-a-929068320/" target="_blank" class="btn-outline">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-        LinkedIn
-      </a>
-      <a href="mailto:kirubiaabel03@gmail.com" class="btn-outline">✉ Email</a>
-      <a href="resume.pdf" download class="btn-outline">↓ Resume</a>
-    </div>
-  </div>
-  <div class="hero-graphic" aria-hidden="true"><div class="grid-dots"></div></div>
-</header>
+<div class="container">
 
-<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-wrap">
+      <div class="hero-badge">Open to Data Science Roles</div>
+      <h1>I build <em>data-driven</em><br/>solutions that create<br/>real business impact.</h1>
+      <p>Data Science graduate skilled in Machine Learning, analytics, and dashboard development. I turn raw data into meaningful insights using Python, SQL, and visualization tools.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#contact">Get in touch</a>
+        <a class="btn btn-outline" href="#projects">View projects</a>
+      </div>
+      <div class="hero-links">
+        <a href="https://github.com/Kirubia" target="_blank">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.82-.26.82-.58v-2.03c-3.34.73-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49.99.11-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02 0 2.04.13 3 .4 2.28-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.49 5.92.43.37.81 1.1.81 2.22v3.29c0 .32.22.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/kirubia-a-929068320/" target="_blank">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.95v5.66H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+          LinkedIn
+        </a>
+        <a href="mailto:kirubiaabel03@gmail.com">
+          ✉ kirubiaabel03@gmail.com
+        </a>
+      </div>
+    </div>
+    <div class="avatar-wrap">
+      <img class="avatar" src="profile.jpg" alt="Kirubia A" onerror="this.style.display='none'" />
+    </div>
+  </section>
 
-<section class="section" id="featured">
-  <div class="section-label">Featured Project</div>
-  <div class="featured-card reveal">
-    <div class="featured-header">
-      <div>
-        <div class="project-tag completed">Completed · 2026</div>
-        <h2 class="featured-title">Global AI Adoption &amp; Workforce Impact</h2>
-        <p class="featured-desc">A 4-module ML pipeline on 150,000+ company records across 9 industries and 6 regions — predicting AI adoption stages, segmenting companies by maturity, estimating ROI, and uncovering causal relationships in AI ethics data.</p>
-      </div>
-      <a href="https://github.com/Kirubia/Global-AI-ADOPTION-WORKPLACE-IMPACT" target="_blank" class="btn-primary">View on GitHub →</a>
-    </div>
-    <div class="modules-grid">
-      <div class="module-card">
-        <div class="module-num">01</div>
-        <h4>Adoption Classifier</h4>
-        <p>XGBoost multi-class model predicts AI stage (none / pilot / partial / full)</p>
-        <div class="metrics"><span><strong>F1</strong> 0.83</span><span><strong>ROC-AUC</strong> 0.98</span></div>
-      </div>
-      <div class="module-card">
-        <div class="module-num">02</div>
-        <h4>Maturity Segmentation</h4>
-        <p>K-Means (k=4) clusters 10k companies — AI Leaders show 3.6× revenue growth vs. laggards</p>
-        <div class="metrics"><span><strong>4</strong> clusters</span><span><strong>3.6×</strong> top vs bottom</span></div>
-      </div>
-      <div class="module-card">
-        <div class="module-num">03</div>
-        <h4>ROI Regression</h4>
-        <p>LightGBM with SHAP explainability to estimate revenue growth &amp; cost reduction</p>
-        <div class="metrics"><span><strong>SHAP</strong> explained</span><span><strong>Optuna</strong> tuned</span></div>
-      </div>
-      <div class="module-card">
-        <div class="module-num">04</div>
-        <h4>Ethics &amp; Risk Analysis</h4>
-        <p>OLS with 14 confounders revealed reverse causality — ethics committees respond to risk</p>
-        <div class="metrics"><span><strong>OR 0.29</strong> adoption</span><span><strong>Causal</strong> analysis</span></div>
-      </div>
-    </div>
-    <div class="featured-stack">
-      <span>Python</span><span>XGBoost</span><span>LightGBM</span><span>K-Means</span><span>SHAP</span><span>Optuna</span><span>Streamlit</span><span>GroupShuffleSplit</span>
-    </div>
-  </div>
-</section>
+  <hr />
 
-<section class="section" id="projects">
-  <div class="section-label">Projects</div>
-  <div class="projects-grid">
-    <div class="project-card reveal">
-      <div class="project-top">
-        <h3>India Housing Price Analysis</h3>
-        <div class="project-links">
-          <a href="https://github.com/Kirubia/india-housing-eda" target="_blank">GitHub</a>
-          <a href="https://india-housing-eda-aduczswxsawybpovr5pscc.streamlit.app/" target="_blank" class="link-live">Live ↗</a>
+  <!-- FEATURED -->
+  <section id="projects">
+    <div class="section-label">Featured Project</div>
+    <h2>Global AI Adoption & Workforce Impact</h2>
+    <div class="featured-card">
+      <h3>End-to-End ML Pipeline on 150,000+ Records</h3>
+      <p>Analyzed AI adoption across industries, predicting business performance and workforce transformation using advanced machine learning models.</p>
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-val">0.83</div>
+          <div class="metric-label">XGBoost F1 Score</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">0.97</div>
+          <div class="metric-label">ROC-AUC Score</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">150k+</div>
+          <div class="metric-label">Company Records</div>
+        </div>
+        <div class="metric">
+          <div class="metric-val">4</div>
+          <div class="metric-label">AI Maturity Clusters</div>
         </div>
       </div>
-      <p>End-to-end analytics covering data cleaning, feature engineering, EDA, and a deployed Streamlit dashboard for housing price trends across Indian cities.</p>
-      <ul>
-        <li>Handled missing values, standardized formats, created new analytical features</li>
-        <li>Identified location and property type as primary price drivers</li>
-        <li>Deployed interactive dashboard with filters and summary metrics</li>
-      </ul>
-      <div class="stack-pills"><span>Python</span><span>Pandas</span><span>Seaborn</span><span>Streamlit</span><span>Feature Engineering</span></div>
+      <div class="tags">
+        <span class="tag">Python</span>
+        <span class="tag">XGBoost</span>
+        <span class="tag">LightGBM</span>
+        <span class="tag">K-Means Clustering</span>
+        <span class="tag">Streamlit</span>
+        <span class="tag">Causal Analysis</span>
+      </div>
+      <div class="card-links">
+        <a class="card-link" href="https://github.com/Kirubia/Global-AI-ADOPTION-WORKPLACE-IMPACT" target="_blank">View on GitHub ↗</a>
+      </div>
     </div>
-    <div class="project-card reveal">
-      <div class="project-top">
+  </section>
+
+  <!-- OTHER PROJECTS -->
+  <section>
+    <div class="section-label">Projects</div>
+    <h2>More Work</h2>
+    <div class="project-grid">
+
+      <div class="project-card">
+        <h3>India Housing Price Analysis</h3>
+        <p>Comprehensive EDA on housing datasets to analyze pricing trends across cities, property types, and ownership patterns. Built interactive Streamlit dashboard.</p>
+        <div class="tags">
+          <span class="tag">EDA</span>
+          <span class="tag">Streamlit</span>
+          <span class="tag">Data Visualization</span>
+        </div>
+        <div class="card-links">
+          <a class="card-link" href="https://github.com/Kirubia/india-housing-eda" target="_blank">GitHub</a>
+          <a class="card-link" href="https://india-housing-eda-aduczswxsawybpovr5pscc.streamlit.app/" target="_blank">Live Demo</a>
+        </div>
+      </div>
+
+      <div class="project-card">
         <h3>Sales Data Analysis</h3>
-        <div class="project-links"><a href="https://github.com/Kirubia/Sales_Analytics" target="_blank">GitHub</a></div>
+        <p>Analyzed 9,800+ records to uncover trends in sales performance, profitability, and customer behavior with Tableau dashboards tracking KPIs.</p>
+        <div class="tags">
+          <span class="tag">Python</span>
+          <span class="tag">Tableau</span>
+          <span class="tag">KPI Analysis</span>
+        </div>
+        <div class="card-links">
+          <a class="card-link" href="https://github.com/Kirubia/Sales_Analytics" target="_blank">GitHub</a>
+        </div>
       </div>
-      <p>Analyzed 9,800+ records to uncover sales performance trends, profitability drivers, and customer behaviour patterns.</p>
-      <ul>
-        <li>Built Tableau dashboards for KPI tracking and regional performance</li>
-        <li>Quantified discount impact on profitability by category</li>
-        <li>Delivered actionable insights for business decision-making</li>
-      </ul>
-      <div class="stack-pills"><span>Python</span><span>Tableau</span><span>Excel</span><span>KPI Analysis</span></div>
-    </div>
-    <div class="project-card reveal">
-      <div class="project-top">
+
+      <div class="project-card">
         <h3>Bike Sales Analysis</h3>
-        <div class="project-links"><a href="https://github.com/Kirubia/Bike-Dekho-Project" target="_blank">GitHub</a></div>
+        <p>Analyzed factors influencing bike pricing and sales trends — mileage, age, brand, and location — with visual reports for business insight.</p>
+        <div class="tags">
+          <span class="tag">Python</span>
+          <span class="tag">Excel</span>
+          <span class="tag">Data Analysis</span>
+        </div>
+        <div class="card-links">
+          <a class="card-link" href="https://github.com/Kirubia/Bike-Dekho-Project" target="_blank">GitHub</a>
+        </div>
       </div>
-      <p>Excel-based analysis of used bike sales data to identify pricing factors and market trends.</p>
-      <ul>
-        <li>Cleaned and structured data covering mileage, age, brand, and location</li>
-        <li>Built pivot table dashboard to visualize pricing variation</li>
-        <li>Identified key factors driving price differences across brands and cities</li>
-      </ul>
-      <div class="stack-pills"><span>Excel</span><span>Pivot Tables</span><span>Dashboard</span><span>Data Analysis</span></div>
-    </div>
-    <div class="project-card reveal">
-      <div class="project-top"><h3>Cirrhosis Disease Prediction</h3></div>
-      <p>ML classification model predicting disease outcomes from clinical data — focused on class imbalance and robust evaluation.</p>
-      <ul>
-        <li>Applied encoding, scaling, and missing value imputation</li>
-        <li>Handled class imbalance across multiple classification models</li>
-        <li>Evaluated with accuracy, precision, recall, and F1-score</li>
-      </ul>
-      <div class="stack-pills"><span>Python</span><span>Scikit-learn</span><span>Classification</span><span>Class Imbalance</span></div>
-    </div>
-  </div>
-</section>
 
-<section class="section" id="experience">
-  <div class="section-label">Experience</div>
-  <div class="exp-card reveal">
-    <div class="exp-left">
-      <div class="exp-company">Gradtwin Services</div>
-      <div class="exp-period">Sept 2024 – Nov 2024</div>
+      <div class="project-card">
+        <h3>Cirrhosis Disease Prediction</h3>
+        <p>ML model to predict disease outcomes from clinical data, with class imbalance handling and evaluation across accuracy, precision, recall, and F1.</p>
+        <div class="tags">
+          <span class="tag">Machine Learning</span>
+          <span class="tag">Classification</span>
+          <span class="tag">Scikit-learn</span>
+        </div>
+        <div class="card-links"></div>
+      </div>
+
     </div>
-    <div class="exp-right">
-      <h3>Data Science Intern</h3>
+  </section>
+
+  <hr />
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-label">Skills</div>
+    <h2>Technical Toolkit</h2>
+    <div class="skills-grid">
+      <div class="skill-block">
+        <h4>Programming</h4>
+        <p>Python (Pandas, NumPy, Matplotlib, Seaborn), SQL</p>
+      </div>
+      <div class="skill-block">
+        <h4>Machine Learning</h4>
+        <p>Regression, Classification, Model Evaluation (Accuracy, Precision, Recall, RMSE)</p>
+      </div>
+      <div class="skill-block">
+        <h4>Data Visualization</h4>
+        <p>Power BI, Tableau, Excel (Pivot Tables, Power Query)</p>
+      </div>
+      <div class="skill-block">
+        <h4>Tools</h4>
+        <p>Jupyter Notebook, GitHub, Streamlit</p>
+      </div>
+      <div class="skill-block">
+        <h4>Core Concepts</h4>
+        <p>EDA, Data Cleaning, Feature Engineering, Data Transformation</p>
+      </div>
+    </div>
+  </section>
+
+  <hr />
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="section-label">Experience</div>
+    <h2>Work History</h2>
+    <div class="exp-card">
+      <div class="exp-header">
+        <div>
+          <div class="exp-title">Data Science Intern</div>
+          <div class="exp-company">Gradtwin Services</div>
+        </div>
+        <div class="exp-date">Sept 2024 – Nov 2024</div>
+      </div>
       <ul>
-        <li>Performed EDA on real-world datasets to identify patterns and business trends</li>
+        <li>Performed exploratory data analysis (EDA) on real-world datasets to identify patterns and trends</li>
         <li>Built ML models including KNN and Random Forest for prediction tasks</li>
-        <li>Applied data preprocessing: cleaning, encoding, and feature engineering</li>
+        <li>Applied data preprocessing techniques such as cleaning, encoding, and feature engineering</li>
         <li>Evaluated model performance using accuracy, RMSE, precision, and recall</li>
-        <li>Compared models using cross-validation and presented findings to stakeholders</li>
+        <li>Collaborated on project-based learning to sharpen analytical thinking</li>
       </ul>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="section" id="skills">
-  <div class="section-label">Skills</div>
-  <div class="skills-grid reveal">
-    <div class="skill-group">
-      <div class="skill-group-title">Languages</div>
-      <div class="skill-pills"><span>Python</span><span>SQL</span></div>
-    </div>
-    <div class="skill-group">
-      <div class="skill-group-title">ML &amp; Modelling</div>
-      <div class="skill-pills"><span>XGBoost</span><span>LightGBM</span><span>Scikit-learn</span><span>SHAP</span><span>Optuna</span><span>K-Means</span><span>Classification</span><span>Regression</span></div>
-    </div>
-    <div class="skill-group">
-      <div class="skill-group-title">Data &amp; Analysis</div>
-      <div class="skill-pills"><span>Pandas</span><span>NumPy</span><span>EDA</span><span>Feature Engineering</span><span>Statistical Analysis</span><span>Data Cleaning</span></div>
-    </div>
-    <div class="skill-group">
-      <div class="skill-group-title">Visualisation</div>
-      <div class="skill-pills"><span>Matplotlib</span><span>Seaborn</span><span>Tableau</span><span>Power BI</span><span>Streamlit</span><span>Excel</span></div>
-    </div>
-    <div class="skill-group">
-      <div class="skill-group-title">Tools</div>
-      <div class="skill-pills"><span>Jupyter</span><span>GitHub</span><span>MySQL</span></div>
-    </div>
-  </div>
-</section>
+  <hr />
 
-<section class="section" id="education">
-  <div class="section-label">Education</div>
-  <div class="edu-card reveal">
-    <div class="edu-left">
-      <div class="edu-badge">8.2 CGPA</div>
-      <div class="edu-period">2021 – 2025</div>
+  <!-- WHAT I BRING -->
+  <section>
+    <div class="section-label">What I Bring</div>
+    <h2>Why Work With Me</h2>
+    <div class="bring-grid">
+      <div class="bring-item">
+        <span class="bring-icon">🗂️</span>
+        <p>Ability to work with real-world messy datasets</p>
+      </div>
+      <div class="bring-item">
+        <span class="bring-icon">📊</span>
+        <p>Strong foundation in data analysis and visualization</p>
+      </div>
+      <div class="bring-item">
+        <span class="bring-icon">🔁</span>
+        <p>Experience building end-to-end ML pipelines</p>
+      </div>
+      <div class="bring-item">
+        <span class="bring-icon">💡</span>
+        <p>Focus on extracting actionable business insights</p>
+      </div>
+      <div class="bring-item">
+        <span class="bring-icon">🚀</span>
+        <p>Quick learner with a strong problem-solving mindset</p>
+      </div>
     </div>
-    <div class="edu-right">
-      <h3>B.Tech — Artificial Intelligence &amp; Data Science</h3>
-      <p>SIMATS School of Engineering, Chennai</p>
-    </div>
-  </div>
-</section>
+  </section>
 
-</main>
-
-<footer class="footer">
-  <div class="footer-inner">
-    <span>Kirubia A · kirubiaabel03@gmail.com · +91 9363333824</span>
-    <div class="footer-links">
-      <a href="https://github.com/Kirubia" target="_blank">GitHub</a>
-      <a href="https://www.linkedin.com/in/kirubia-a-929068320/" target="_blank">LinkedIn</a>
-      <a href="resume.pdf" download>Resume</a>
+  <!-- CTA -->
+  <section id="contact">
+    <div class="cta-section">
+      <div class="section-label">Let's Talk</div>
+      <h2>Open to Data Science &amp; AI Roles</h2>
+      <p>Looking for opportunities where I can make a real impact with data. Let's connect!</p>
+      <div style="display:flex; gap:0.75rem; justify-content:center; flex-wrap:wrap;">
+        <a class="btn btn-primary" href="mailto:kirubiaabel03@gmail.com">✉ kirubiaabel03@gmail.com</a>
+        <a class="btn btn-outline" href="tel:+919363333824">📞 +91 93633 33824</a>
+        <a class="btn btn-outline" href="https://www.linkedin.com/in/kirubia-a-929068320/" target="_blank">LinkedIn ↗</a>
+      </div>
     </div>
-  </div>
+  </section>
+
+</div>
+
+<footer>
+  © 2025 Kirubia A — Built with care
 </footer>
 
-<script>
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
-  });
-}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.reveal').forEach((el, i) => { el.style.transitionDelay = `${(i % 4) * 80}ms`; observer.observe(el); });
-const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
-new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) navLinks.forEach(l => { l.style.color = l.getAttribute('href') === `#${entry.target.id}` ? 'var(--text)' : ''; });
-  });
-}, { threshold: 0.4 }).observe(...document.querySelectorAll('section[id], header[id]'));
-</script>
 </body>
 </html>
