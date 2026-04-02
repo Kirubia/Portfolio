@@ -22,7 +22,7 @@
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 16px;
-  --max-w:     860px;
+  --max-w:     1100px;
 }
 
 /* ── BASE ────────────────────────────── */
@@ -100,7 +100,7 @@ li { margin-bottom: 0.35rem; color: var(--text2); font-size: 14px; }
 /* ── HERO ────────────────────────────── */
 .hero {
   position: relative;
-  padding: 140px 2rem 100px;
+  padding: 140px 3rem 100px;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -115,7 +115,6 @@ li { margin-bottom: 0.35rem; color: var(--text2); font-size: 14px; }
   position: relative;
   z-index: 1;
 }
-
 .hero-badge {
   display: inline-flex;
   align-items: center;
@@ -218,7 +217,7 @@ li { margin-bottom: 0.35rem; color: var(--text2); font-size: 14px; }
 main {
   max-width: var(--max-w);
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 3rem;
   width: 100%;
 }
 
