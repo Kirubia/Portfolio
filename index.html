@@ -7,11 +7,234 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #0d0f12;
+  --bg2: #13161b;
+  --bg3: #1a1e25;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #e8eaf0;
+  --text2: #8a8f9e;
+  --text3: #5a5f6e;
+  --accent: #4fffb0;
+  --accent2: #00c97a;
+  --accent-dim: rgba(79,255,176,0.08);
+  --accent-dim2: rgba(79,255,176,0.15);
+  --sidebar-w: 280px;
+  --nav-h: 56px;
+  --serif: 'DM Serif Display', Georgia, serif;
+  --sans: 'DM Sans', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+/* NAV */
+.topnav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: var(--nav-h);
+  background: rgba(13,15,18,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+  padding: 0 2rem; gap: 2rem;
+}
+.nav-logo {
+  font-family: var(--mono); font-size: 13px; font-weight: 500;
+  color: var(--accent); letter-spacing: 0.1em;
+  background: var(--accent-dim); padding: 4px 10px; border-radius: 4px;
+}
+.nav-links { display: flex; gap: 1.5rem; flex: 1; }
+.nav-links a { font-size: 13px; color: var(--text2); text-decoration: none; transition: color .2s; }
+.nav-links a:hover { color: var(--text); }
+.nav-resume {
+  font-size: 12px; font-family: var(--mono); font-weight: 500;
+  color: var(--accent); text-decoration: none;
+  border: 1px solid var(--accent2); padding: 6px 14px; border-radius: 4px;
+  transition: background .2s;
+}
+.nav-resume:hover { background: var(--accent-dim); }
+
+/* LAYOUT */
+.layout { display: flex; margin-top: var(--nav-h); min-height: calc(100vh - var(--nav-h)); }
+
+/* SIDEBAR */
+.sidebar {
+  width: var(--sidebar-w); flex-shrink: 0;
+  position: sticky; top: var(--nav-h);
+  height: calc(100vh - var(--nav-h));
+  overflow-y: auto;
+  border-right: 1px solid var(--border);
+  background: var(--bg2);
+}
+.sidebar-inner {
+  padding: 2rem 1.5rem;
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  gap: 0.5rem;
+}
+.avatar {
+  width: 96px; height: 96px; border-radius: 50%;
+  object-fit: cover; border: 2px solid var(--accent); margin-bottom: 0.5rem;
+}
+.sidebar-name { font-family: var(--serif); font-size: 20px; font-weight: 400; color: var(--text); }
+.open-badge {
+  font-size: 11px; font-family: var(--mono);
+  color: var(--accent); background: var(--accent-dim);
+  padding: 3px 10px; border-radius: 20px; letter-spacing: 0.05em;
+}
+.sidebar-role { font-size: 14px; font-weight: 500; color: var(--text); margin-top: 4px; }
+.sidebar-sub { font-size: 12px; color: var(--text2); line-height: 1.5; }
+
+.sidebar-links { display: flex; flex-direction: column; width: 100%; gap: 6px; margin-top: 1rem; }
+.slink {
+  display: flex; align-items: center; gap: 8px;
+  font-size: 13px; color: var(--text2); text-decoration: none;
+  padding: 8px 12px; border-radius: 6px;
+  border: 1px solid var(--border); background: var(--bg3); transition: all .2s;
+}
+.slink:hover { color: var(--accent); border-color: var(--accent2); background: var(--accent-dim); }
+
+.sidebar-stats {
+  display: flex; width: 100%; margin-top: 1.25rem;
+  border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+}
+.stat { flex: 1; padding: 10px 4px; text-align: center; border-right: 1px solid var(--border); display: flex; flex-direction: column; }
+.stat:last-child { border-right: none; }
+.stat-num { font-family: var(--mono); font-size: 16px; font-weight: 500; color: var(--accent); }
+.stat-lab { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.08em; }
+
+.resume-dl {
+  width: 100%; text-align: center; margin-top: 1rem;
+  font-size: 12px; font-family: var(--mono);
+  color: var(--accent); text-decoration: none;
+  border: 1px solid var(--accent2); padding: 8px 12px; border-radius: 6px;
+  background: var(--accent-dim); transition: background .2s;
+}
+.resume-dl:hover { background: var(--accent-dim2); }
+
+/* MAIN */
+.content { flex: 1; min-width: 0; padding: 3rem 3.5rem; max-width: 900px; }
+section { margin-bottom: 4rem; }
+.section-title {
+  font-family: var(--serif); font-size: 28px; font-weight: 400;
+  color: var(--text); margin-bottom: 1.75rem;
+  padding-bottom: 0.75rem; border-bottom: 1px solid var(--border);
+}
+
+/* HERO */
+.hero { margin-bottom: 4rem; }
+.hero-tag {
+  font-family: var(--mono); font-size: 12px; color: var(--accent);
+  letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem;
+}
+.hero-title {
+  font-family: var(--serif); font-size: clamp(36px, 5vw, 56px);
+  font-weight: 400; line-height: 1.15; color: var(--text); margin-bottom: 1rem;
+}
+.hero-title em { color: var(--accent); font-style: italic; }
+.hero-sub { color: var(--text2); margin-bottom: 1.5rem; font-family: var(--mono); font-size: 13px; letter-spacing: 0.03em; }
+.hero-body { color: var(--text2); margin-bottom: 1rem; font-size: 15px; line-height: 1.8; }
+
+/* PROJECTS */
+.project {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 10px; padding: 1.75rem; margin-bottom: 1.25rem; transition: border-color .2s;
+}
+.project:hover { border-color: var(--border2); }
+.project.featured {
+  border-color: rgba(79,255,176,0.25);
+  background: linear-gradient(135deg, var(--bg2) 0%, rgba(79,255,176,0.03) 100%);
+}
+.project.featured:hover { border-color: rgba(79,255,176,0.45); }
+.featured-badge {
+  font-size: 11px; font-family: var(--mono); font-weight: 500;
+  color: var(--accent); background: var(--accent-dim);
+  padding: 3px 9px; border-radius: 20px; margin-bottom: 8px; display: inline-block;
+}
+.project h3 { font-family: var(--serif); font-size: 20px; font-weight: 400; color: var(--text); margin-bottom: 4px; }
+.project-meta { font-size: 12px; font-family: var(--mono); color: var(--text3); margin-bottom: 0.9rem; }
+.project-desc { color: var(--text2); font-size: 14px; margin-bottom: 1rem; line-height: 1.75; }
+.project-bullets { list-style: none; margin-bottom: 1rem; }
+.project-bullets li { font-size: 14px; color: var(--text2); line-height: 1.7; padding: 4px 0 4px 1.25rem; position: relative; }
+.project-bullets li::before { content: '─'; position: absolute; left: 0; color: var(--accent); font-size: 12px; top: 6px; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 1rem; }
+.tags span { font-size: 11px; font-family: var(--mono); font-weight: 500; color: var(--accent); background: var(--accent-dim); padding: 3px 9px; border-radius: 4px; }
+.project-links { display: flex; gap: 12px; flex-wrap: wrap; }
+.plink { font-size: 13px; font-family: var(--mono); color: var(--text2); text-decoration: none; border-bottom: 1px solid var(--border2); padding-bottom: 1px; transition: color .2s, border-color .2s; }
+.plink:hover { color: var(--accent); border-color: var(--accent); }
+.plink.demo { color: var(--accent); }
+
+/* EXPERIENCE */
+.exp-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; padding: 1.75rem; margin-bottom: 1rem; }
+.exp-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: 1rem; flex-wrap: wrap; }
+.exp-card h3 { font-family: var(--serif); font-size: 18px; font-weight: 400; color: var(--text); margin-bottom: 4px; }
+.exp-company { font-size: 13px; color: var(--text2); }
+.exp-dot { color: var(--text3); margin: 0 4px; }
+.exp-date { font-size: 12px; font-family: var(--mono); color: var(--text3); white-space: nowrap; padding-top: 4px; }
+
+/* SKILLS */
+.skills-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
+}
+.skill-group { background: var(--bg2); padding: 1.25rem 1.5rem; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.skill-group h4 { font-size: 11px; font-family: var(--mono); font-weight: 500; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; }
+.skill-group p { font-size: 13px; color: var(--text2); line-height: 1.7; }
+
+/* CERTIFICATIONS */
+.cert-grid { display: flex; flex-direction: column; gap: 1px; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.cert-card { display: flex; align-items: flex-start; gap: 1rem; background: var(--bg2); padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); }
+.cert-card:last-child { border-bottom: none; }
+.cert-icon { font-size: 20px; flex-shrink: 0; margin-top: 2px; }
+.cert-card h4 { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
+.cert-card p { font-size: 12px; color: var(--text2); font-family: var(--mono); }
+.cert-link { font-size: 12px; color: var(--accent); text-decoration: none; font-family: var(--mono); margin-top: 4px; display: inline-block; border-bottom: 1px solid transparent; transition: border-color .2s; }
+.cert-link:hover { border-color: var(--accent); }
+
+/* CTA */
+.cta {
+  border: 1px solid rgba(79,255,176,0.2); border-radius: 12px;
+  background: linear-gradient(135deg, var(--bg2), rgba(79,255,176,0.04));
+  padding: 3rem; text-align: center; margin-bottom: 3rem;
+}
+.cta h2 { font-family: var(--serif); font-size: 32px; font-weight: 400; color: var(--text); margin-bottom: 0.75rem; }
+.cta p { font-size: 15px; color: var(--text2); margin-bottom: 2rem; }
+.cta-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.cta-btn { font-size: 13px; font-family: var(--mono); text-decoration: none; padding: 10px 20px; border-radius: 6px; transition: all .2s; border: 1px solid var(--border2); color: var(--text2); }
+.cta-btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+.cta-btn.primary { background: var(--accent); color: #0d0f12; border-color: var(--accent); font-weight: 500; }
+.cta-btn.primary:hover { background: var(--accent2); border-color: var(--accent2); color: #0d0f12; }
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--bg3); border-radius: 3px; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .layout { flex-direction: column; }
+  .sidebar { width: 100%; position: static; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+  .sidebar-inner { flex-direction: row; flex-wrap: wrap; text-align: left; }
+  .topnav { padding: 0 1rem; }
+  .nav-links { display: none; }
+  .content { padding: 2rem 1.25rem; }
+}
+</style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav class="topnav">
   <span class="nav-logo">KA</span>
   <div class="nav-links">
@@ -25,8 +248,8 @@
   <a href="resume.pdf" download class="nav-resume">Download Resume ↓</a>
 </nav>
 
-<!-- SIDEBAR -->
 <div class="layout">
+
 <aside class="sidebar">
   <div class="sidebar-inner">
     <img src="profile.jpg" alt="Kirubia A" class="avatar">
@@ -34,7 +257,6 @@
     <span class="open-badge">● Open to Work</span>
     <p class="sidebar-role">Data Analyst</p>
     <p class="sidebar-sub">SQL · Python · Power BI · Tableau</p>
-
     <div class="sidebar-links">
       <a href="https://github.com/Kirubia" target="_blank" class="slink">
         <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.55 2.87 8.41 6.84 9.78.5.09.68-.22.68-.49v-1.71c-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.38 9.38 0 0 1 12 6.84c.85 0 1.7.12 2.5.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9v2.82c0 .27.18.59.69.49A10.27 10.27 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg>
@@ -49,46 +271,32 @@
         Email
       </a>
     </div>
-
     <div class="sidebar-stats">
       <div class="stat"><span class="stat-num">6+</span><span class="stat-lab">Projects</span></div>
       <div class="stat"><span class="stat-num">61K+</span><span class="stat-lab">Records</span></div>
       <div class="stat"><span class="stat-num">8.2</span><span class="stat-lab">CGPA</span></div>
     </div>
-
     <a href="resume.pdf" download class="resume-dl">Download Resume ↓</a>
   </div>
 </aside>
 
-<!-- MAIN CONTENT -->
 <main class="content">
 
-  <!-- HERO -->
   <section class="hero" id="about">
     <div class="hero-tag">Data Analyst · Chennai, India</div>
     <h1 class="hero-title">I turn raw data into<br><em>decisions that matter.</em></h1>
     <p class="hero-sub">Specialising in business intelligence, EDA, and dashboard development &mdash; Python · SQL · Power BI · Tableau</p>
-    <p class="hero-body">
-      I'm a Data Analyst and AI &amp; Data Science graduate (CGPA 8.2) with hands-on experience turning large, messy datasets into clear business insights. During my internship at Gradtwin Services, I built supervised ML models that improved accuracy by 12% and delivered stakeholder-ready reports from real-world data. My projects span 150,000+ record ML pipelines, sentiment analysis on 61k customer reviews, and interactive Power BI and Tableau dashboards — all documented on GitHub.
-    </p>
-    <p class="hero-body">
-      I hold Oracle Cloud Infrastructure certifications in GenAI and AI Foundations, and completed the Accenture Data Analytics &amp; Visualisation Job Simulation on Forage. I'm actively seeking Data Analyst roles in Chennai or remote.
-    </p>
+    <p class="hero-body">I'm a Data Analyst and AI &amp; Data Science graduate (CGPA 8.2) with hands-on experience turning large, messy datasets into clear business insights. During my internship at Gradtwin Services, I built supervised ML models that improved accuracy by 12% and delivered stakeholder-ready reports from real-world data. My projects span 150,000+ record ML pipelines, sentiment analysis on 61k customer reviews, and interactive Power BI and Tableau dashboards — all documented on GitHub.</p>
+    <p class="hero-body">I hold Oracle Cloud Infrastructure certifications in GenAI and AI Foundations, and completed the Accenture Data Analytics &amp; Visualisation Job Simulation on Forage. Actively seeking Data Analyst roles in Chennai or remote.</p>
   </section>
 
-  <!-- PROJECTS -->
   <section id="projects">
     <h2 class="section-title">Projects</h2>
 
-    <!-- FEATURED -->
     <div class="project featured">
-      <div class="project-header">
-        <div>
-          <span class="featured-badge">⭐ Featured</span>
-          <h3>Nykaa Beauty Brand Review Analysis</h3>
-          <p class="project-meta">End-to-end analytics pipeline · 61,284 customer reviews · 11 brands</p>
-        </div>
-      </div>
+      <span class="featured-badge">⭐ Featured</span>
+      <h3>Nykaa Beauty Brand Review Analysis</h3>
+      <p class="project-meta">End-to-end analytics pipeline · 61,284 customer reviews · 11 brands</p>
       <p class="project-desc">Built a complete data analytics pipeline from raw CSV to an interactive 9-visual Power BI dashboard. Applied VADER sentiment analysis across 61k review texts and identified actionable business insights on discounting strategy and brand performance.</p>
       <ul class="project-bullets">
         <li>Cleaned 61,284 rows in Pandas — fixed datetime types, handled 47k+ nulls, engineered discount %, year, and month features</li>
@@ -97,15 +305,10 @@
         <li>Key insight: medium discounts (11–25%) drive higher review engagement than heavy discounts; review volume tripled in 2019 aligned with Nykaa's pre-IPO expansion</li>
         <li>Delivered 9-visual interactive Power BI dashboard with brand slicers, KPI cards, and trend charts</li>
       </ul>
-      <div class="tags">
-        <span>Python</span><span>Pandas</span><span>SQL</span><span>VADER</span><span>Power BI</span><span>Matplotlib</span><span>Seaborn</span><span>GitHub</span>
-      </div>
-      <div class="project-links">
-        <a href="https://github.com/Kirubia/nykaa-brand-review-analysis" target="_blank" class="plink">View on GitHub →</a>
-      </div>
+      <div class="tags"><span>Python</span><span>Pandas</span><span>SQL</span><span>VADER</span><span>Power BI</span><span>Matplotlib</span><span>Seaborn</span><span>GitHub</span></div>
+      <div class="project-links"><a href="https://github.com/Kirubia/nykaa-brand-review-analysis" target="_blank" class="plink">View on GitHub →</a></div>
     </div>
 
-    <!-- PROJECT 2 -->
     <div class="project">
       <h3>Global AI Adoption &amp; Workforce Impact</h3>
       <p class="project-meta">Full ML pipeline · 150,000+ records · 20+ industries</p>
@@ -116,15 +319,10 @@
         <li>Class imbalance handled with SMOTE; all experiments tracked via MLflow</li>
         <li>Deployed interactive Streamlit dashboard with real-time filters</li>
       </ul>
-      <div class="tags">
-        <span>XGBoost</span><span>LightGBM</span><span>K-Means</span><span>SHAP</span><span>MLflow</span><span>Streamlit</span><span>SMOTE</span>
-      </div>
-      <div class="project-links">
-        <a href="https://github.com/Kirubia/Global-AI-ADOPTION-WORKPLACE-IMPACT" target="_blank" class="plink">View on GitHub →</a>
-      </div>
+      <div class="tags"><span>XGBoost</span><span>LightGBM</span><span>K-Means</span><span>SHAP</span><span>MLflow</span><span>Streamlit</span><span>SMOTE</span></div>
+      <div class="project-links"><a href="https://github.com/Kirubia/Global-AI-ADOPTION-WORKPLACE-IMPACT" target="_blank" class="plink">View on GitHub →</a></div>
     </div>
 
-    <!-- PROJECT 3 -->
     <div class="project">
       <h3>Sales KPI Dashboard &amp; India Housing Price Analysis</h3>
       <p class="project-meta">Business analytics · SQL · Tableau · Streamlit</p>
@@ -134,9 +332,7 @@
         <li>Housing: Correlation heatmaps + statistical tests across city-level data — location and property type identified as strongest pricing predictors</li>
         <li>Deployed Streamlit dashboard with dynamic regional filters for housing analysis</li>
       </ul>
-      <div class="tags">
-        <span>SQL</span><span>Python</span><span>Tableau</span><span>Excel</span><span>Seaborn</span><span>Streamlit</span>
-      </div>
+      <div class="tags"><span>SQL</span><span>Python</span><span>Tableau</span><span>Excel</span><span>Seaborn</span><span>Streamlit</span></div>
       <div class="project-links">
         <a href="https://github.com/Kirubia/Sales_Analytics" target="_blank" class="plink">Sales Project →</a>
         <a href="https://github.com/Kirubia/india-housing-eda" target="_blank" class="plink">Housing Project →</a>
@@ -144,7 +340,6 @@
       </div>
     </div>
 
-    <!-- PROJECT 4 -->
     <div class="project">
       <h3>Sentiment Analysis — Product Reviews</h3>
       <p class="project-meta">NLP pipeline · TF-IDF · Logistic Regression</p>
@@ -154,15 +349,10 @@
         <li>Evaluated with precision, recall, F1-score, and confusion matrix across positive and negative classes</li>
         <li>Visualised predictive features using word clouds and bar plots</li>
       </ul>
-      <div class="tags">
-        <span>Python</span><span>NLTK</span><span>spaCy</span><span>TF-IDF</span><span>Scikit-learn</span>
-      </div>
-      <div class="project-links">
-        <a href="https://github.com/Kirubia" target="_blank" class="plink">View on GitHub →</a>
-      </div>
+      <div class="tags"><span>Python</span><span>NLTK</span><span>spaCy</span><span>TF-IDF</span><span>Scikit-learn</span></div>
+      <div class="project-links"><a href="https://github.com/Kirubia" target="_blank" class="plink">View on GitHub →</a></div>
     </div>
 
-    <!-- PROJECT 5 -->
     <div class="project">
       <h3>Cirrhosis Disease Stage Prediction</h3>
       <p class="project-meta">Medical ML · Multi-class classification · SMOTE</p>
@@ -171,14 +361,11 @@
         <li>Random Forest outperformed baseline by 18%; SMOTE applied for class imbalance correction</li>
         <li>Evaluated with accuracy, F1-score, and AUC-ROC across all disease stages</li>
       </ul>
-      <div class="tags">
-        <span>Random Forest</span><span>Logistic Regression</span><span>SMOTE</span><span>ROC-AUC</span><span>Scikit-learn</span>
-      </div>
+      <div class="tags"><span>Random Forest</span><span>Logistic Regression</span><span>SMOTE</span><span>ROC-AUC</span><span>Scikit-learn</span></div>
     </div>
 
   </section>
 
-  <!-- EXPERIENCE -->
   <section id="experience">
     <h2 class="section-title">Experience</h2>
     <div class="exp-card">
@@ -191,45 +378,25 @@
       </div>
       <ul class="project-bullets">
         <li>Performed exploratory data analysis (EDA) on real-world datasets — identified trends, patterns, and business-relevant outliers using Pandas, Matplotlib, and Seaborn</li>
-        <li>Built and benchmarked supervised ML models (KNN, Random Forest) using cross-validation and GridSearchCV; <strong>improved model accuracy by 12%</strong> through hyperparameter tuning</li>
+        <li>Built and benchmarked supervised ML models (KNN, Random Forest) using cross-validation and GridSearchCV; <strong style="color:var(--text)">improved model accuracy by 12%</strong> through hyperparameter tuning</li>
         <li>Engineered features via label encoding, one-hot encoding, normalisation, and transformation pipelines; evaluated performance using F1-score, ROC-AUC, precision, recall, and confusion matrix</li>
         <li>Translated findings into stakeholder-ready reports with clear visualisations and data-driven recommendations</li>
       </ul>
     </div>
   </section>
 
-  <!-- SKILLS -->
   <section id="skills">
     <h2 class="section-title">Skills</h2>
     <div class="skills-grid">
-      <div class="skill-group">
-        <h4>Languages &amp; Data</h4>
-        <p>Python (Pandas, NumPy, SciPy), SQL (MySQL — joins, window functions, CTEs), R basics, Excel (Pivot Tables, Power Query, XLOOKUP)</p>
-      </div>
-      <div class="skill-group">
-        <h4>ML &amp; Predictive Analytics</h4>
-        <p>Scikit-learn, XGBoost, LightGBM, Random Forest, Logistic Regression, KNN, SVM, K-Means, DBSCAN, PCA, SHAP, SMOTE, GridSearchCV</p>
-      </div>
-      <div class="skill-group">
-        <h4>BI &amp; Visualisation</h4>
-        <p>Power BI (DAX, KPI cards, slicers, dashboards), Tableau, Matplotlib, Seaborn, Plotly, Streamlit, KPI Reporting</p>
-      </div>
-      <div class="skill-group">
-        <h4>NLP &amp; Generative AI</h4>
-        <p>TF-IDF, VADER Sentiment, NLTK, spaCy, Hugging Face Transformers, LangChain, Prompt Engineering, RAG pipeline, Oracle OCI GenAI</p>
-      </div>
-      <div class="skill-group">
-        <h4>MLOps &amp; Cloud</h4>
-        <p>MLflow, FastAPI, Docker basics, Git, GitHub, GCP (BigQuery, Colab), Oracle Cloud Infrastructure, CI/CD basics</p>
-      </div>
-      <div class="skill-group">
-        <h4>Core Concepts</h4>
-        <p>EDA, Feature Engineering, Business Intelligence, Hypothesis Testing, A/B Testing, ETL, Statistical Analysis, Data Storytelling, Stakeholder Communication</p>
-      </div>
+      <div class="skill-group"><h4>Languages &amp; Data</h4><p>Python (Pandas, NumPy, SciPy), SQL (MySQL — joins, window functions, CTEs), R basics, Excel (Pivot Tables, Power Query, XLOOKUP)</p></div>
+      <div class="skill-group"><h4>ML &amp; Predictive Analytics</h4><p>Scikit-learn, XGBoost, LightGBM, Random Forest, Logistic Regression, KNN, SVM, K-Means, DBSCAN, PCA, SHAP, SMOTE, GridSearchCV</p></div>
+      <div class="skill-group"><h4>BI &amp; Visualisation</h4><p>Power BI (DAX, KPI cards, slicers, dashboards), Tableau, Matplotlib, Seaborn, Plotly, Streamlit, KPI Reporting</p></div>
+      <div class="skill-group"><h4>NLP &amp; Generative AI</h4><p>TF-IDF, VADER Sentiment, NLTK, spaCy, Hugging Face Transformers, LangChain, Prompt Engineering, RAG pipeline, Oracle OCI GenAI</p></div>
+      <div class="skill-group"><h4>MLOps &amp; Cloud</h4><p>MLflow, FastAPI, Docker basics, Git, GitHub, GCP (BigQuery, Colab), Oracle Cloud Infrastructure, CI/CD basics</p></div>
+      <div class="skill-group"><h4>Core Concepts</h4><p>EDA, Feature Engineering, Business Intelligence, Hypothesis Testing, A/B Testing, ETL, Statistical Analysis, Data Storytelling, Stakeholder Communication</p></div>
     </div>
   </section>
 
-  <!-- CERTIFICATIONS -->
   <section id="certifications">
     <h2 class="section-title">Certifications</h2>
     <div class="cert-grid">
@@ -267,7 +434,6 @@
     </div>
   </section>
 
-  <!-- EDUCATION -->
   <section id="education">
     <h2 class="section-title">Education</h2>
     <div class="exp-card">
@@ -282,7 +448,6 @@
     </div>
   </section>
 
-  <!-- CTA -->
   <section class="cta" id="contact">
     <h2>Let's build something together</h2>
     <p>Open to Data Analyst roles in Chennai and remote. If you're hiring or know someone who is — let's connect.</p>
@@ -296,6 +461,37 @@
 </main>
 </div>
 
-<script src="script.js"></script>
+<script>
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+const navObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(link => {
+        link.style.color = link.getAttribute('href') === '#' + entry.target.id ? 'var(--text)' : '';
+      });
+    }
+  });
+}, { rootMargin: '-40% 0px -50% 0px' });
+sections.forEach(s => navObserver.observe(s));
+
+const fadeEls = document.querySelectorAll('.project, .exp-card, .skill-group, .cert-card');
+const fadeObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+      fadeObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08 });
+fadeEls.forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(16px)';
+  el.style.transition = 'opacity 0.45s ease, transform 0.45s ease';
+  fadeObserver.observe(el);
+});
+</script>
+
 </body>
 </html>
