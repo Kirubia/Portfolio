@@ -3,603 +3,299 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kirubia A — Data Analyst & ML Engineer</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --navy: #0f1e2e;
-    --navy2: #162535;
-    --accent: #38bdf8;
-    --accent2: #0ea5e9;
-    --pink: #f472b6;
-    --teal: #2dd4bf;
-    --gold: #fbbf24;
-    --text: #e2e8f0;
-    --muted: #94a3b8;
-    --card: #1a2e42;
-    --border: rgba(56,189,248,0.15);
-    --tag-bg: rgba(56,189,248,0.1);
-  }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  html { scroll-behavior:smooth; }
-  body {
-    background: var(--navy);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 15px;
-    line-height: 1.7;
-    overflow-x: hidden;
-  }
-
-  /* SCROLLBAR */
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: var(--navy); }
-  ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
-
-  /* LAYOUT */
-  .wrapper { display: flex; min-height: 100vh; }
-
-  /* SIDEBAR */
-  .sidebar {
-    width: 280px;
-    flex-shrink: 0;
-    background: var(--navy2);
-    border-right: 1px solid var(--border);
-    padding: 2.5rem 1.5rem;
-    position: sticky;
-    top: 0;
-    height: 100vh;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-  .avatar-wrap { text-align: center; }
-  .avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 3px solid var(--accent);
-    display: block;
-    margin: 0 auto 1rem;
-  }
-  .sidebar h2 {
-    font-family: 'DM Serif Display', serif;
-    font-size: 1.4rem;
-    color: #fff;
-    text-align: center;
-    margin-bottom: 4px;
-  }
-  .open-badge {
-    display: inline-block;
-    background: rgba(56,189,248,0.12);
-    color: var(--accent);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    padding: 3px 10px;
-    border-radius: 20px;
-    border: 1px solid var(--border);
-    margin: 0 auto;
-    display: block;
-    text-align: center;
-    width: fit-content;
-    margin: 0 auto;
-  }
-  .contact-block { font-size: 13px; color: var(--muted); }
-  .contact-block p { margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
-  .contact-block a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
-  .contact-block a:hover { color: var(--accent); }
-  .nav-links { display: flex; flex-direction: column; gap: 4px; }
-  .nav-links a {
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 13px;
-    padding: 7px 12px;
-    border-radius: 8px;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .nav-links a:hover, .nav-links a.active {
-    background: var(--tag-bg);
-    color: var(--accent);
-  }
-  .nav-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); opacity: 0; }
-  .nav-links a:hover .nav-dot, .nav-links a.active .nav-dot { opacity: 1; }
-  .btn-group { display: flex; flex-direction: column; gap: 8px; }
-  .btn {
-    display: block;
-    text-align: center;
-    padding: 9px 16px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 500;
-    text-decoration: none;
-    transition: all 0.2s;
-    border: 1px solid var(--border);
-    color: var(--text);
-    background: transparent;
-  }
-  .btn:hover { border-color: var(--accent); color: var(--accent); }
-  .btn.primary { background: var(--accent); color: #0f1e2e; border-color: var(--accent); font-weight: 600; }
-  .btn.primary:hover { background: #7dd3fc; border-color: #7dd3fc; }
-  .sidebar-label {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    opacity: 0.6;
-  }
-
-  /* MAIN */
-  .main { flex: 1; padding: 3rem 3.5rem; max-width: 900px; }
-
-  /* SECTIONS */
-  section { margin-bottom: 4rem; }
-  .section-label {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 0.5rem;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .section-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-  h1.hero-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 2.8rem;
-    line-height: 1.15;
-    color: #fff;
-    margin-bottom: 1.25rem;
-  }
-  h1.hero-title em { font-style: italic; color: var(--accent); }
-  .hero-desc { color: var(--muted); font-size: 15px; max-width: 580px; margin-bottom: 2rem; line-height: 1.75; }
-  .stat-row { display: flex; gap: 2rem; margin-bottom: 2rem; flex-wrap: wrap; }
-  .stat { }
-  .stat-num { font-family: 'DM Serif Display', serif; font-size: 2rem; color: #fff; line-height: 1; }
-  .stat-label { font-size: 12px; color: var(--muted); }
-  .hero-tags { display: flex; flex-wrap: wrap; gap: 8px; }
-  .hero-tag {
-    font-size: 12px;
-    padding: 4px 12px;
-    border-radius: 20px;
-    border: 1px solid var(--border);
-    color: var(--muted);
-  }
-
-  /* CARDS */
-  .card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-    transition: border-color 0.2s, transform 0.2s;
-  }
-  .card:hover { border-color: rgba(56,189,248,0.35); transform: translateY(-2px); }
-  .card.featured { border-color: rgba(56,189,248,0.4); position: relative; overflow: hidden; }
-  .card.featured::before {
-    content: 'Featured';
-    position: absolute;
-    top: 14px; right: 14px;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--accent);
-    background: rgba(56,189,248,0.1);
-    border: 1px solid var(--border);
-    padding: 2px 8px;
-    border-radius: 20px;
-  }
-  .card h3 {
-    font-size: 16px;
-    font-weight: 600;
-    color: #fff;
-    margin-bottom: 8px;
-  }
-  .card p { color: var(--muted); font-size: 14px; margin-bottom: 10px; line-height: 1.65; }
-  .card ul { color: var(--muted); font-size: 13.5px; padding-left: 1.2rem; margin-bottom: 12px; }
-  .card ul li { margin-bottom: 5px; }
-  .card ul li strong { color: var(--text); }
-  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
-  .tag {
-    font-size: 11px;
-    padding: 3px 10px;
-    border-radius: 20px;
-    background: var(--tag-bg);
-    color: var(--accent);
-    border: 1px solid var(--border);
-  }
-  .tag.pink { background: rgba(244,114,182,0.1); color: var(--pink); border-color: rgba(244,114,182,0.2); }
-  .tag.teal { background: rgba(45,212,191,0.1); color: var(--teal); border-color: rgba(45,212,191,0.2); }
-  .tag.gold { background: rgba(251,191,36,0.1); color: var(--gold); border-color: rgba(251,191,36,0.2); }
-  .card-links { display: flex; gap: 10px; flex-wrap: wrap; }
-  .link-btn {
-    font-size: 12px;
-    font-weight: 500;
-    padding: 5px 14px;
-    border-radius: 6px;
-    text-decoration: none;
-    border: 1px solid var(--border);
-    color: var(--muted);
-    transition: all 0.2s;
-  }
-  .link-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .link-btn.demo { background: rgba(56,189,248,0.1); color: var(--accent); border-color: rgba(56,189,248,0.3); }
-
-  /* SKILLS GRID */
-  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
-  .skill-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 16px;
-  }
-  .skill-card h4 { font-size: 12px; font-weight: 600; color: var(--accent); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.06em; }
-  .skill-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
-
-  /* CERT CARDS */
-  .cert-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px; }
-  .cert-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 16px;
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-  }
-  .cert-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    flex-shrink: 0;
-  }
-  .cert-card h4 { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
-  .cert-card p { font-size: 12px; color: var(--muted); }
-
-  /* EXPERIENCE */
-  .exp-item { display: flex; gap: 1.2rem; margin-bottom: 1.5rem; }
-  .exp-line { display: flex; flex-direction: column; align-items: center; }
-  .exp-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--accent); flex-shrink: 0; margin-top: 6px; }
-  .exp-tail { flex: 1; width: 1px; background: var(--border); margin-top: 4px; }
-  .exp-content { flex: 1; }
-  .exp-content h3 { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 2px; }
-  .exp-meta { font-size: 12px; color: var(--accent); margin-bottom: 8px; }
-  .exp-content ul { color: var(--muted); font-size: 13.5px; padding-left: 1.2rem; }
-  .exp-content ul li { margin-bottom: 5px; }
-
-  /* CTA */
-  .cta-block {
-    background: linear-gradient(135deg, rgba(56,189,248,0.08), rgba(45,212,191,0.05));
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 2.5rem;
-    text-align: center;
-  }
-  .cta-block h2 { font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: #fff; margin-bottom: 0.5rem; }
-  .cta-block p { color: var(--muted); margin-bottom: 1.5rem; }
-  .cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-  .cta-btn {
-    padding: 10px 24px;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.2s;
-  }
-  .cta-btn.solid { background: var(--accent); color: #0f1e2e; }
-  .cta-btn.solid:hover { background: #7dd3fc; }
-  .cta-btn.outline { border: 1px solid var(--border); color: var(--text); }
-  .cta-btn.outline:hover { border-color: var(--accent); color: var(--accent); }
-
-  /* RESPONSIVE */
-  @media (max-width: 860px) {
-    .wrapper { flex-direction: column; }
-    .sidebar { width: 100%; height: auto; position: static; border-right: none; border-bottom: 1px solid var(--border); flex-direction: row; flex-wrap: wrap; padding: 1.5rem; gap: 1rem; }
-    .main { padding: 2rem 1.5rem; }
-    h1.hero-title { font-size: 2rem; }
-    .nav-links { flex-direction: row; flex-wrap: wrap; }
-    .btn-group { flex-direction: row; }
-  }
-</style>
+<title>Kirubia A — Data Analyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="wrapper">
+<!-- NAV -->
+<nav class="topnav">
+  <span class="nav-logo">KA</span>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#certifications">Certifications</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a href="resume.pdf" download class="nav-resume">Download Resume ↓</a>
+</nav>
 
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-    <div class="avatar-wrap">
-      <img src="profile.jpg" alt="Kirubia A" class="avatar">
-      <h2>Kirubia A</h2>
-      <span class="open-badge">Open to Work</span>
+<!-- SIDEBAR -->
+<div class="layout">
+<aside class="sidebar">
+  <div class="sidebar-inner">
+    <img src="profile.jpg" alt="Kirubia A" class="avatar">
+    <h2 class="sidebar-name">Kirubia A</h2>
+    <span class="open-badge">● Open to Work</span>
+    <p class="sidebar-role">Data Analyst</p>
+    <p class="sidebar-sub">SQL · Python · Power BI · Tableau</p>
+
+    <div class="sidebar-links">
+      <a href="https://github.com/Kirubia" target="_blank" class="slink">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.55 2.87 8.41 6.84 9.78.5.09.68-.22.68-.49v-1.71c-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.89 1.57 2.34 1.12 2.91.85.09-.66.35-1.12.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.28 2.75 1.05A9.38 9.38 0 0 1 12 6.84c.85 0 1.7.12 2.5.34 1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9v2.82c0 .27.18.59.69.49A10.27 10.27 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/></svg>
+        GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/kirubia-a-929068320/" target="_blank" class="slink">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zM9 17H6.5v-7H9v7zM7.75 8.75a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zM18 17h-2.5v-3.5c0-1-.75-1.5-1.5-1.5s-1.5.5-1.5 1.5V17H10v-7h2.5v1c.5-.75 1.5-1.25 2.5-1.25C17 9.75 18 11 18 13v4z"/></svg>
+        LinkedIn
+      </a>
+      <a href="mailto:kirubiaabel03@gmail.com" class="slink">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        Email
+      </a>
     </div>
 
-    <div>
-      <p class="sidebar-label">Navigation</p>
-      <nav class="nav-links">
-        <a href="#about"><div class="nav-dot"></div> About</a>
-        <a href="#projects"><div class="nav-dot"></div> Projects</a>
-        <a href="#experience"><div class="nav-dot"></div> Experience</a>
-        <a href="#skills"><div class="nav-dot"></div> Skills</a>
-        <a href="#certifications"><div class="nav-dot"></div> Certifications</a>
-        <a href="#contact"><div class="nav-dot"></div> Contact</a>
-      </nav>
+    <div class="sidebar-stats">
+      <div class="stat"><span class="stat-num">6+</span><span class="stat-lab">Projects</span></div>
+      <div class="stat"><span class="stat-num">61K+</span><span class="stat-lab">Records</span></div>
+      <div class="stat"><span class="stat-num">8.2</span><span class="stat-lab">CGPA</span></div>
     </div>
 
-    <div class="btn-group">
-      <a href="https://github.com/Kirubia" target="_blank" class="btn">GitHub</a>
-      <a href="https://www.linkedin.com/in/kirubia-a-929068320/" target="_blank" class="btn">LinkedIn</a>
-      <a href="resume.pdf" download class="btn primary">Download Resume</a>
+    <a href="resume.pdf" download class="resume-dl">Download Resume ↓</a>
+  </div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="content">
+
+  <!-- HERO -->
+  <section class="hero" id="about">
+    <div class="hero-tag">Data Analyst · Chennai, India</div>
+    <h1 class="hero-title">I turn raw data into<br><em>decisions that matter.</em></h1>
+    <p class="hero-sub">Specialising in business intelligence, EDA, and dashboard development &mdash; Python · SQL · Power BI · Tableau</p>
+    <p class="hero-body">
+      I'm a Data Analyst and AI &amp; Data Science graduate (CGPA 8.2) with hands-on experience turning large, messy datasets into clear business insights. During my internship at Gradtwin Services, I built supervised ML models that improved accuracy by 12% and delivered stakeholder-ready reports from real-world data. My projects span 150,000+ record ML pipelines, sentiment analysis on 61k customer reviews, and interactive Power BI and Tableau dashboards — all documented on GitHub.
+    </p>
+    <p class="hero-body">
+      I hold Oracle Cloud Infrastructure certifications in GenAI and AI Foundations, and completed the Accenture Data Analytics &amp; Visualisation Job Simulation on Forage. I'm actively seeking Data Analyst roles in Chennai or remote.
+    </p>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <h2 class="section-title">Projects</h2>
+
+    <!-- FEATURED -->
+    <div class="project featured">
+      <div class="project-header">
+        <div>
+          <span class="featured-badge">⭐ Featured</span>
+          <h3>Nykaa Beauty Brand Review Analysis</h3>
+          <p class="project-meta">End-to-end analytics pipeline · 61,284 customer reviews · 11 brands</p>
+        </div>
+      </div>
+      <p class="project-desc">Built a complete data analytics pipeline from raw CSV to an interactive 9-visual Power BI dashboard. Applied VADER sentiment analysis across 61k review texts and identified actionable business insights on discounting strategy and brand performance.</p>
+      <ul class="project-bullets">
+        <li>Cleaned 61,284 rows in Pandas — fixed datetime types, handled 47k+ nulls, engineered discount %, year, and month features</li>
+        <li>Wrote 6 business SQL queries via pandasql — Kay Beauty identified as top-rated brand (4.69 avg rating, 78% five-star ratio)</li>
+        <li>VADER sentiment: 83% positive, 9% negative; brand-level sentiment heatmap built in Seaborn</li>
+        <li>Key insight: medium discounts (11–25%) drive higher review engagement than heavy discounts; review volume tripled in 2019 aligned with Nykaa's pre-IPO expansion</li>
+        <li>Delivered 9-visual interactive Power BI dashboard with brand slicers, KPI cards, and trend charts</li>
+      </ul>
+      <div class="tags">
+        <span>Python</span><span>Pandas</span><span>SQL</span><span>VADER</span><span>Power BI</span><span>Matplotlib</span><span>Seaborn</span><span>GitHub</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/Kirubia/nykaa-brand-review-analysis" target="_blank" class="plink">View on GitHub →</a>
+      </div>
     </div>
 
-    <div class="contact-block">
-      <p class="sidebar-label">Contact</p>
-      <p>✉ <a href="mailto:kirubiaabel03@gmail.com">kirubiaabel03@gmail.com</a></p>
-      <p>📞 <a href="tel:+919363333824">+91 9363333824</a></p>
-      <p>📍 Chennai, India</p>
+    <!-- PROJECT 2 -->
+    <div class="project">
+      <h3>Global AI Adoption &amp; Workforce Impact</h3>
+      <p class="project-meta">Full ML pipeline · 150,000+ records · 20+ industries</p>
+      <p class="project-desc">End-to-end ML pipeline analysing AI adoption patterns and workforce transformation across global industries, with XGBoost classification, LightGBM regression, K-Means clustering, and a live Streamlit dashboard.</p>
+      <ul class="project-bullets">
+        <li>XGBoost multi-class classifier (F1: 0.83, ROC-AUC: 0.97) with SHAP explainability to predict AI adoption stages</li>
+        <li>K-Means clustering segmented companies into 4 AI maturity profiles using elbow method</li>
+        <li>Class imbalance handled with SMOTE; all experiments tracked via MLflow</li>
+        <li>Deployed interactive Streamlit dashboard with real-time filters</li>
+      </ul>
+      <div class="tags">
+        <span>XGBoost</span><span>LightGBM</span><span>K-Means</span><span>SHAP</span><span>MLflow</span><span>Streamlit</span><span>SMOTE</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/Kirubia/Global-AI-ADOPTION-WORKPLACE-IMPACT" target="_blank" class="plink">View on GitHub →</a>
+      </div>
     </div>
-  </aside>
 
-  <!-- MAIN CONTENT -->
-  <main class="main">
-
-    <!-- HERO -->
-    <section id="about">
-      <h1 class="hero-title">I turn raw data into<br><em>decisions that matter.</em></h1>
-      <p class="hero-desc">
-        Data Analyst and ML Engineer with a B.Tech in Artificial Intelligence & Data Science (CGPA 8.2). 
-        I build end-to-end analytics pipelines, predictive models, and interactive dashboards that answer 
-        real business questions — from 61,000-row beauty datasets to 150,000-record AI adoption studies.
-      </p>
-      <div class="stat-row">
-        <div class="stat"><div class="stat-num">6+</div><div class="stat-label">Projects</div></div>
-        <div class="stat"><div class="stat-num">61K+</div><div class="stat-label">Records Analysed</div></div>
-        <div class="stat"><div class="stat-num">8.2</div><div class="stat-label">CGPA</div></div>
-        <div class="stat"><div class="stat-num">4</div><div class="stat-label">Certifications</div></div>
+    <!-- PROJECT 3 -->
+    <div class="project">
+      <h3>Sales KPI Dashboard &amp; India Housing Price Analysis</h3>
+      <p class="project-meta">Business analytics · SQL · Tableau · Streamlit</p>
+      <p class="project-desc">Two business analytics projects demonstrating SQL querying, BI dashboarding, and statistical analysis on real datasets.</p>
+      <ul class="project-bullets">
+        <li>Sales: Analysed 9,800+ records with SQL and Python; built Tableau KPI dashboards; identified excessive discounting as net revenue drain — delivered corrective recommendations</li>
+        <li>Housing: Correlation heatmaps + statistical tests across city-level data — location and property type identified as strongest pricing predictors</li>
+        <li>Deployed Streamlit dashboard with dynamic regional filters for housing analysis</li>
+      </ul>
+      <div class="tags">
+        <span>SQL</span><span>Python</span><span>Tableau</span><span>Excel</span><span>Seaborn</span><span>Streamlit</span>
       </div>
-      <div class="hero-tags">
-        <span class="hero-tag">Python</span>
-        <span class="hero-tag">SQL</span>
-        <span class="hero-tag">Power BI</span>
-        <span class="hero-tag">Machine Learning</span>
-        <span class="hero-tag">NLP</span>
-        <span class="hero-tag">Generative AI</span>
-        <span class="hero-tag">Tableau</span>
-        <span class="hero-tag">Streamlit</span>
-        <span class="hero-tag">MLflow</span>
+      <div class="project-links">
+        <a href="https://github.com/Kirubia/Sales_Analytics" target="_blank" class="plink">Sales Project →</a>
+        <a href="https://github.com/Kirubia/india-housing-eda" target="_blank" class="plink">Housing Project →</a>
+        <a href="https://india-housing-eda-aduczswxsawybpovr5pscc.streamlit.app/" target="_blank" class="plink demo">Live Demo →</a>
       </div>
-    </section>
+    </div>
 
-    <!-- PROJECTS -->
-    <section id="projects">
-      <p class="section-label">Projects</p>
-
-      <!-- NYKAA — NEW FEATURED -->
-      <div class="card featured">
-        <h3>Nykaa Beauty Brand Review Analysis</h3>
-        <p>End-to-end data analysis on 61,284 customer reviews across 11 top beauty brands — from raw CSV to interactive Power BI dashboard. Built as Portfolio Project 1 using the full analyst toolchain.</p>
-        <ul>
-          <li><strong>Data pipeline:</strong> Cleaned 61k rows in Pandas — fixed datetime types, handled 47k+ nulls, engineered discount %, year, and month features</li>
-          <li><strong>SQL analysis:</strong> Wrote 6 business queries using pandasql — Kay Beauty identified as top-rated brand (4.69 avg, highest 5-star ratio at 78%)</li>
-          <li><strong>Sentiment analysis:</strong> Applied VADER on all review texts — 83% positive, 9% negative; brand-level sentiment heatmap built</li>
-          <li><strong>Insight:</strong> Review volume tripled in 2019 aligned with Nykaa's pre-IPO expansion; medium discounts (11–25%) drive more engagement than high discounts</li>
-          <li><strong>Dashboard:</strong> 9-visual interactive Power BI dashboard with brand slicers, KPI cards, yearly trend, and monthly breakdown</li>
-        </ul>
-        <div class="tag-row">
-          <span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">SQL</span>
-          <span class="tag">VADER Sentiment</span><span class="tag">Matplotlib</span>
-          <span class="tag">Seaborn</span><span class="tag pink">Power BI</span><span class="tag pink">GitHub</span>
-        </div>
-        <div class="card-links">
-          <a href="https://github.com/Kirubia/nykaa-brand-review-analysis" target="_blank" class="link-btn demo">View on GitHub</a>
-        </div>
+    <!-- PROJECT 4 -->
+    <div class="project">
+      <h3>Sentiment Analysis — Product Reviews</h3>
+      <p class="project-meta">NLP pipeline · TF-IDF · Logistic Regression</p>
+      <p class="project-desc">End-to-end NLP pipeline for sentiment classification of product reviews using classical ML and text vectorisation techniques.</p>
+      <ul class="project-bullets">
+        <li>Text cleaning, tokenisation, stopword removal, TF-IDF vectorisation → Logistic Regression classifier</li>
+        <li>Evaluated with precision, recall, F1-score, and confusion matrix across positive and negative classes</li>
+        <li>Visualised predictive features using word clouds and bar plots</li>
+      </ul>
+      <div class="tags">
+        <span>Python</span><span>NLTK</span><span>spaCy</span><span>TF-IDF</span><span>Scikit-learn</span>
       </div>
-
-      <!-- GLOBAL AI -->
-      <div class="card featured">
-        <h3>Global AI Adoption & Workforce Impact</h3>
-        <p>Full-scale ML pipeline on 150,000+ company records to analyse AI adoption patterns, workforce transformation, and business performance across 20+ industries globally.</p>
-        <ul>
-          <li><strong>XGBoost classifier</strong> (F1: 0.83, ROC-AUC: 0.97) to predict AI adoption stages with SHAP explainability</li>
-          <li><strong>LightGBM regression</strong> to estimate revenue growth and cost reduction from AI investment</li>
-          <li><strong>K-Means clustering</strong> segmented companies into 4 AI maturity profiles using elbow method</li>
-          <li>All experiments tracked via <strong>MLflow</strong> — parameters, metrics, model artefacts logged for reproducibility</li>
-          <li>Class imbalance handled with <strong>SMOTE</strong>; deployed interactive <strong>Streamlit dashboard</strong> with real-time filters</li>
-        </ul>
-        <div class="tag-row">
-          <span class="tag">XGBoost</span><span class="tag">LightGBM</span><span class="tag">K-Means</span>
-          <span class="tag">SHAP</span><span class="tag teal">MLflow</span><span class="tag teal">Streamlit</span><span class="tag">SMOTE</span>
-        </div>
-        <div class="card-links">
-          <a href="https://github.com/Kirubia/Global-AI-ADOPTION-WORKPLACE-IMPACT" target="_blank" class="link-btn">View Code</a>
-        </div>
+      <div class="project-links">
+        <a href="https://github.com/Kirubia" target="_blank" class="plink">View on GitHub →</a>
       </div>
+    </div>
 
-      <!-- SENTIMENT -->
-      <div class="card">
-        <h3>Sentiment Analysis — Product Reviews</h3>
-        <p>End-to-end NLP pipeline for sentiment classification of product reviews using classical ML and text vectorisation techniques.</p>
-        <ul>
-          <li>Text cleaning, tokenisation, stopword removal, <strong>TF-IDF vectorisation</strong> → Logistic Regression classifier</li>
-          <li>Evaluated with precision, recall, <strong>F1-score, and confusion matrix</strong> across positive and negative classes</li>
-          <li>Applied class balancing; visualised predictive features using word clouds and bar plots</li>
-        </ul>
-        <div class="tag-row">
-          <span class="tag">Python</span><span class="tag">NLTK</span><span class="tag">spaCy</span>
-          <span class="tag">TF-IDF</span><span class="tag">Logistic Regression</span><span class="tag">Scikit-learn</span>
-        </div>
+    <!-- PROJECT 5 -->
+    <div class="project">
+      <h3>Cirrhosis Disease Stage Prediction</h3>
+      <p class="project-meta">Medical ML · Multi-class classification · SMOTE</p>
+      <p class="project-desc">Multi-class ML classifier on clinical patient data to predict disease stages — built for real-world medical decision support.</p>
+      <ul class="project-bullets">
+        <li>Random Forest outperformed baseline by 18%; SMOTE applied for class imbalance correction</li>
+        <li>Evaluated with accuracy, F1-score, and AUC-ROC across all disease stages</li>
+      </ul>
+      <div class="tags">
+        <span>Random Forest</span><span>Logistic Regression</span><span>SMOTE</span><span>ROC-AUC</span><span>Scikit-learn</span>
       </div>
+    </div>
 
-      <!-- SALES + HOUSING -->
-      <div class="card">
-        <h3>Sales KPI Dashboard  &amp;  India Housing Price Analysis</h3>
-        <p>Two business analytics projects demonstrating SQL querying, BI dashboarding, and statistical analysis on real datasets.</p>
-        <ul>
-          <li><strong>Sales:</strong> Analysed 9,800+ records; built Tableau KPI dashboards; identified excessive discounting as net revenue drain — delivered corrective recommendations</li>
-          <li><strong>Housing:</strong> Correlation heatmaps + statistical tests across city-level data — location and property type identified as strongest pricing predictors; deployed Streamlit dashboard with dynamic filters</li>
-        </ul>
-        <div class="tag-row">
-          <span class="tag">SQL</span><span class="tag">Python</span><span class="tag gold">Tableau</span>
-          <span class="tag">Excel</span><span class="tag">Seaborn</span><span class="tag teal">Streamlit</span>
-        </div>
-        <div class="card-links">
-          <a href="https://github.com/Kirubia/Sales_Analytics" target="_blank" class="link-btn">Sales Project</a>
-          <a href="https://github.com/Kirubia/india-housing-eda" target="_blank" class="link-btn">Housing Project</a>
-          <a href="https://india-housing-eda-aduczswxsawybpovr5pscc.streamlit.app/" target="_blank" class="link-btn demo">Live Demo</a>
-        </div>
-      </div>
+  </section>
 
-      <!-- CIRRHOSIS -->
-      <div class="card">
-        <h3>Cirrhosis Disease Stage Prediction</h3>
-        <p>Multi-class ML classifier on clinical patient data to predict disease stages — built for real-world medical decision support.</p>
-        <ul>
-          <li>Random Forest outperformed baseline by <strong>18%</strong>; SMOTE applied for class imbalance correction</li>
-          <li>Evaluated with accuracy, <strong>F1-score, and AUC-ROC</strong> across all disease stages</li>
-        </ul>
-        <div class="tag-row">
-          <span class="tag">Random Forest</span><span class="tag">Logistic Regression</span>
-          <span class="tag">SMOTE</span><span class="tag">ROC-AUC</span><span class="tag">Scikit-learn</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- EXPERIENCE -->
-    <section id="experience">
-      <p class="section-label">Experience</p>
-      <div class="exp-item">
-        <div class="exp-line">
-          <div class="exp-dot"></div>
-          <div class="exp-tail"></div>
-        </div>
-        <div class="exp-content">
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <h2 class="section-title">Experience</h2>
+    <div class="exp-card">
+      <div class="exp-header">
+        <div>
           <h3>Data Science Intern</h3>
-          <p class="exp-meta">Gradtwin Services  ·  Sept 2024 – Nov 2024  ·  Chennai</p>
-          <ul>
-            <li>Performed <strong>exploratory data analysis (EDA)</strong> on real-world datasets — identified trends, patterns, and business-relevant outliers using Pandas, Matplotlib, and Seaborn</li>
-            <li>Built and benchmarked supervised ML models (KNN, Random Forest) using <strong>cross-validation and GridSearchCV</strong>; improved model accuracy by 12%</li>
-            <li>Engineered features via label encoding, one-hot encoding, and normalisation; evaluated with <strong>F1-score, ROC-AUC, precision, and recall</strong></li>
-            <li>Delivered stakeholder-ready reports with clear visualisations and data-driven recommendations</li>
-          </ul>
+          <p class="exp-company">Gradtwin Services <span class="exp-dot">·</span> Ed-tech platform, Chennai</p>
+        </div>
+        <span class="exp-date">Sept 2024 – Nov 2024</span>
+      </div>
+      <ul class="project-bullets">
+        <li>Performed exploratory data analysis (EDA) on real-world datasets — identified trends, patterns, and business-relevant outliers using Pandas, Matplotlib, and Seaborn</li>
+        <li>Built and benchmarked supervised ML models (KNN, Random Forest) using cross-validation and GridSearchCV; <strong>improved model accuracy by 12%</strong> through hyperparameter tuning</li>
+        <li>Engineered features via label encoding, one-hot encoding, normalisation, and transformation pipelines; evaluated performance using F1-score, ROC-AUC, precision, recall, and confusion matrix</li>
+        <li>Translated findings into stakeholder-ready reports with clear visualisations and data-driven recommendations</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <h2 class="section-title">Skills</h2>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h4>Languages &amp; Data</h4>
+        <p>Python (Pandas, NumPy, SciPy), SQL (MySQL — joins, window functions, CTEs), R basics, Excel (Pivot Tables, Power Query, XLOOKUP)</p>
+      </div>
+      <div class="skill-group">
+        <h4>ML &amp; Predictive Analytics</h4>
+        <p>Scikit-learn, XGBoost, LightGBM, Random Forest, Logistic Regression, KNN, SVM, K-Means, DBSCAN, PCA, SHAP, SMOTE, GridSearchCV</p>
+      </div>
+      <div class="skill-group">
+        <h4>BI &amp; Visualisation</h4>
+        <p>Power BI (DAX, KPI cards, slicers, dashboards), Tableau, Matplotlib, Seaborn, Plotly, Streamlit, KPI Reporting</p>
+      </div>
+      <div class="skill-group">
+        <h4>NLP &amp; Generative AI</h4>
+        <p>TF-IDF, VADER Sentiment, NLTK, spaCy, Hugging Face Transformers, LangChain, Prompt Engineering, RAG pipeline, Oracle OCI GenAI</p>
+      </div>
+      <div class="skill-group">
+        <h4>MLOps &amp; Cloud</h4>
+        <p>MLflow, FastAPI, Docker basics, Git, GitHub, GCP (BigQuery, Colab), Oracle Cloud Infrastructure, CI/CD basics</p>
+      </div>
+      <div class="skill-group">
+        <h4>Core Concepts</h4>
+        <p>EDA, Feature Engineering, Business Intelligence, Hypothesis Testing, A/B Testing, ETL, Statistical Analysis, Data Storytelling, Stakeholder Communication</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications">
+    <h2 class="section-title">Certifications</h2>
+    <div class="cert-grid">
+      <div class="cert-card">
+        <span class="cert-icon">🏢</span>
+        <div>
+          <h4>Accenture Data Analytics &amp; Visualisation</h4>
+          <p>Forage Job Simulation · Aug 2024</p>
+          <a href="https://www.theforage.com/simulations/accenture-nam/data-analytics-mmlb" target="_blank" class="cert-link">View credential →</a>
         </div>
       </div>
-    </section>
-
-    <!-- SKILLS -->
-    <section id="skills">
-      <p class="section-label">Technical Skills</p>
-      <div class="skills-grid">
-        <div class="skill-card">
-          <h4>Languages & Data</h4>
-          <p>Python (Pandas, NumPy, SciPy), SQL (MySQL — joins, window functions, CTEs), R basics, Excel (Pivot Tables, Power Query, XLOOKUP)</p>
-        </div>
-        <div class="skill-card">
-          <h4>Machine Learning</h4>
-          <p>Scikit-learn, XGBoost, LightGBM, Random Forest, Logistic Regression, KNN, SVM, K-Means, DBSCAN, PCA, SHAP, SMOTE, GridSearchCV</p>
-        </div>
-        <div class="skill-card">
-          <h4>NLP & Generative AI</h4>
-          <p>TF-IDF, VADER Sentiment, NLTK, spaCy, Hugging Face Transformers, LangChain, Prompt Engineering, RAG pipeline, Oracle OCI GenAI</p>
-        </div>
-        <div class="skill-card">
-          <h4>BI & Visualisation</h4>
-          <p>Power BI (DAX, KPI cards, slicers, dashboards), Tableau, Matplotlib, Seaborn, Plotly, Streamlit, KPI Reporting</p>
-        </div>
-        <div class="skill-card">
-          <h4>MLOps & Cloud</h4>
-          <p>MLflow, FastAPI, Docker basics, Git, GitHub, GCP (BigQuery, Colab), Oracle Cloud Infrastructure (OCI), CI/CD basics, Jupyter, VS Code</p>
-        </div>
-        <div class="skill-card">
-          <h4>Core Concepts</h4>
-          <p>EDA, Feature Engineering, Data Modelling, Business Intelligence, Hypothesis Testing, A/B Testing, ETL, Statistical Analysis, Forecasting</p>
+      <div class="cert-card">
+        <span class="cert-icon">☁</span>
+        <div>
+          <h4>Oracle Cloud Infrastructure GenAI Professional</h4>
+          <p>Oracle · Jul 2024</p>
+          <a href="https://catalog-education.oracle.com/ords/certview/sharebadge?id=2B75DC0EC3AD1FB60E553D8531F76B02A68C78F23B8C50F76A81D7D67AC8D88F" target="_blank" class="cert-link">View credential →</a>
         </div>
       </div>
-    </section>
-
-    <!-- CERTIFICATIONS -->
-    <section id="certifications">
-      <p class="section-label">Certifications</p>
-      <div class="cert-grid">
-        <div class="cert-card">
-          <div class="cert-icon" style="background:rgba(244,114,182,0.12)">🏢</div>
-          <div>
-            <h4>Accenture Data Analytics & Visualisation</h4>
-            <p>Forage Job Simulation  ·  Aug 2024</p>
-          </div>
-        </div>
-        <div class="cert-card">
-          <div class="cert-icon" style="background:rgba(251,191,36,0.12)">☁</div>
-          <div>
-            <h4>Oracle Cloud Infrastructure GenAI Professional</h4>
-            <p>Oracle  ·  Jul 2024</p>
-          </div>
-        </div>
-        <div class="cert-card">
-          <div class="cert-icon" style="background:rgba(251,191,36,0.12)">☁</div>
-          <div>
-            <h4>Oracle Cloud Infrastructure AI Foundations</h4>
-            <p>Oracle  ·  Aug 2024</p>
-          </div>
-        </div>
-        <div class="cert-card">
-          <div class="cert-icon" style="background:rgba(56,189,248,0.12)">💻</div>
-          <div>
-            <h4>Data Structures A-Z Bootcamp</h4>
-            <p>Udemy  ·  Aug 2024</p>
-          </div>
+      <div class="cert-card">
+        <span class="cert-icon">☁</span>
+        <div>
+          <h4>Oracle Cloud Infrastructure AI Foundations</h4>
+          <p>Oracle · Aug 2024</p>
+          <a href="https://catalog-education.oracle.com/ords/certview/sharebadge?id=FA6B4534CCBA6E7A1C3A50B7B0EDE8C6E41B6B60C38E4D02EF6484D7A02EAF32" target="_blank" class="cert-link">View credential →</a>
         </div>
       </div>
-    </section>
-
-    <!-- CTA -->
-    <section id="contact">
-      <div class="cta-block">
-        <h2>Let's build something together</h2>
-        <p>Open to Data Analyst, Data Scientist, and ML Engineer roles in Chennai and remote.</p>
-        <div class="cta-btns">
-          <a href="mailto:kirubiaabel03@gmail.com" class="cta-btn solid">Email Me</a>
-          <a href="https://www.linkedin.com/in/kirubia-a-929068320/" target="_blank" class="cta-btn outline">LinkedIn</a>
-          <a href="https://github.com/Kirubia" target="_blank" class="cta-btn outline">GitHub</a>
+      <div class="cert-card">
+        <span class="cert-icon">💻</span>
+        <div>
+          <h4>Data Structures A-Z Bootcamp</h4>
+          <p>Udemy · Aug 2024</p>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-  </main>
+  <!-- EDUCATION -->
+  <section id="education">
+    <h2 class="section-title">Education</h2>
+    <div class="exp-card">
+      <div class="exp-header">
+        <div>
+          <h3>B.Tech — Artificial Intelligence &amp; Data Science</h3>
+          <p class="exp-company">SIMATS School of Engineering, Chennai</p>
+          <p class="exp-company" style="margin-top:4px;">Relevant coursework: Machine Learning, Deep Learning, NLP, Statistics, Database Systems, Data Visualisation, Algorithms</p>
+        </div>
+        <span class="exp-date">2021 – 2025 &nbsp;|&nbsp; CGPA: 8.2</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" id="contact">
+    <h2>Let's build something together</h2>
+    <p>Open to Data Analyst roles in Chennai and remote. If you're hiring or know someone who is — let's connect.</p>
+    <div class="cta-links">
+      <a href="mailto:kirubiaabel03@gmail.com" class="cta-btn primary">Email Me →</a>
+      <a href="https://www.linkedin.com/in/kirubia-a-929068320/" target="_blank" class="cta-btn">LinkedIn →</a>
+      <a href="https://github.com/Kirubia" target="_blank" class="cta-btn">GitHub →</a>
+    </div>
+  </section>
+
+</main>
 </div>
 
-<script>
-  const sections = document.querySelectorAll('section[id]');
-  const navLinks = document.querySelectorAll('.nav-links a');
-  window.addEventListener('scroll', () => {
-    let current = '';
-    sections.forEach(s => {
-      if (window.scrollY >= s.offsetTop - 120) current = s.id;
-    });
-    navLinks.forEach(a => {
-      a.classList.remove('active');
-      if (a.getAttribute('href') === '#' + current) a.classList.add('active');
-    });
-  });
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
